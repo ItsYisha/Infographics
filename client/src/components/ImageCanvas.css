@@ -1,0 +1,257 @@
+.image-canvas-wrap {
+  position: relative;
+  width: 100%;
+  max-width: 680px;
+  aspect-ratio: 1 / 1;
+  margin: 0 auto;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.10);
+  background: #f0ede6;
+}
+
+.image-canvas-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  cursor: zoom-in;
+  transition: transform 0.15s ease;
+  user-select: none;
+}
+
+.image-canvas-wrap.generating .image-canvas-img {
+  cursor: wait;
+  filter: brightness(0.92);
+}
+
+/* Pulsing border during generation */
+.image-canvas-wrap.generating {
+  outline: 3px solid transparent;
+  animation: pulse-border 1.8s ease-in-out infinite;
+}
+
+@keyframes pulse-border {
+  0%, 100% { box-shadow: 0 4px 24px rgba(0,0,0,0.10), 0 0 0 0 rgba(92,107,192,0.4); }
+  50%       { box-shadow: 0 4px 24px rgba(0,0,0,0.10), 0 0 0 6px rgba(92,107,192,0.0); }
+}
+
+/* Ripple on click */
+.click-ripple {
+  position: absolute;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: rgba(220, 0, 0, 0.3);
+  border: 2px solid rgba(220, 0, 0, 0.7);
+  transform: translate(-50%, -50%) scale(0);
+  pointer-events: none;
+  animation: ripple-out 0.65s ease-out forwards;
+}
+
+@keyframes ripple-out {
+  0%   { transform: translate(-50%, -50%) scale(0); opacity: 1; }
+  100% { transform: translate(-50%, -50%) scale(2.2); opacity: 0; }
+}
+
+/* Generating overlay */
+.generating-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  background: rgba(250, 249, 246, 0.55);
+  backdrop-filter: blur(2px);
+  pointer-events: none;
+}
+
+.generating-overlay span {
+  font-size: 13px;
+  color: #5c6bc0;
+  font-weight: 500;
+  letter-spacing: 0.03em;
+}
+
+.generating-spinner {
+  width: 32px;
+  height: 32px;
+  border: 3px solid rgba(92,107,192,0.2);
+  border-top-color: #5c6bc0;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* ── Gallery hint spots ────────────────────────────────────────────── */
+/*
+ * Shown on Layer 1 when the viewer was opened from the community gallery.
+ * The glowing dot marks exactly where a previous user clicked to go deeper.
+ * Clicking within ~5% radius of the dot instantly loads the cached child page.
+ */
+.hint-spot {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  z-index: 12;
+}
+
+/* Two concentric pulsing rings for a "sonar" feel */
+.hint-spot-ring {
+  position: absolute;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  border: 2px solid rgba(92, 107, 192, 0.75);
+  box-shadow: 0 0 0 0 rgba(92, 107, 192, 0.4);
+}
+
+.hint-spot-ring-outer {
+  width: 52px;
+  height: 52px;
+  animation: hint-sonar 2.2s ease-out infinite;
+}
+
+.hint-spot-ring-inner {
+  width: 28px;
+  height: 28px;
+  animation: hint-sonar 2.2s ease-out infinite 0.5s;
+  border-color: rgba(92, 107, 192, 0.5);
+}
+
+@keyframes hint-sonar {
+  0%   { transform: translate(-50%, -50%) scale(0.85); opacity: 0.9; }
+  70%  { transform: translate(-50%, -50%) scale(1.25); opacity: 0.3; }
+  100% { transform: translate(-50%, -50%) scale(1.25); opacity: 0; }
+}
+
+/* Solid center dot */
+.hint-spot-dot {
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  background: #5c6bc0;
+  border: 2px solid #fff;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  box-shadow: 0 2px 8px rgba(92, 107, 192, 0.6);
+}
+
+/* Label that fades in on image hover */
+.hint-spot-label {
+  position: absolute;
+  top: 28px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(92, 107, 192, 0.92);
+  color: #fff;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+  padding: 3px 8px;
+  border-radius: 10px;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.25s;
+}
+
+.image-canvas-wrap:hover .hint-spot-label {
+  opacity: 1;
+}
+
+/* ── Hint-spot hover tooltip ────────────────────────────────────────── */
+.hint-spot-tooltip {
+  position: absolute;
+  /* default: show BELOW the dot */
+  top: 28px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(22, 22, 30, 0.90);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  border-radius: 10px;
+  padding: 8px 10px 6px;
+  min-width: 120px;
+  max-width: 200px;
+  z-index: 30;
+  pointer-events: none;
+  animation: tooltipPop 0.18s cubic-bezier(0.16, 1, 0.3, 1) both;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.25);
+}
+
+/* When spot is near the bottom of the image, show tooltip above */
+.hint-spot-tooltip.hint-spot-tooltip-above {
+  top: auto;
+  bottom: 28px;
+}
+
+@keyframes tooltipPop {
+  from { opacity: 0; transform: translateX(-50%) scale(0.92); }
+  to   { opacity: 1; transform: translateX(-50%) scale(1); }
+}
+
+/* Avatar row inside tooltip */
+.hint-spot-avatars {
+  display: flex;
+  align-items: center;
+  gap: -4px;     /* avatars overlap */
+  margin-bottom: 5px;
+  flex-wrap: nowrap;
+}
+
+.hint-spot-avatar {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  border: 2px solid rgba(255,255,255,0.25);
+  background: #444;
+  flex-shrink: 0;
+  margin-left: -6px;
+}
+
+.hint-spot-avatars .hint-spot-avatar:first-child {
+  margin-left: 0;
+}
+
+.hint-spot-more {
+  font-size: 10px;
+  color: #bbb;
+  font-weight: 600;
+  margin-left: 4px;
+  letter-spacing: 0.02em;
+}
+
+.hint-spot-tooltip-text {
+  font-size: 11px;
+  color: rgba(255,255,255,0.75);
+  margin: 0;
+  text-align: center;
+  letter-spacing: 0.02em;
+}
+
+/* Hint badge */
+.canvas-hint {
+  position: absolute;
+  bottom: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(0,0,0,0.45);
+  color: #fff;
+  font-size: 11px;
+  padding: 4px 12px;
+  border-radius: 20px;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.3s;
+  white-space: nowrap;
+  letter-spacing: 0.02em;
+}
+
+.image-canvas-wrap:hover .canvas-hint {
+  opacity: 1;
+}

@@ -1,0 +1,205 @@
+.viewer {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  background: #faf9f6;
+  overflow: hidden;
+}
+
+/* ── Top bar ── */
+.viewer-topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-shrink: 0;
+  border-bottom: 1px solid #eee;
+  background: #fafafa;
+}
+
+.viewer-topbar-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding-right: 16px;
+}
+
+.viewer-reset-btn {
+  background: none;
+  border: 1.5px solid #e0dbd0;
+  color: #9a9080;
+  font-size: 12px;
+  font-weight: 600;
+  padding: 6px 12px;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s, border-color 0.15s;
+}
+
+.viewer-reset-btn:hover:not(:disabled) {
+  background: #f5ede0;
+  color: #5a5448;
+  border-color: #c8c0b0;
+}
+
+.viewer-reset-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.viewer-reset-btn-secondary {
+  padding: 6px 10px;
+  font-size: 11px;
+}
+
+/* ── Body ── */
+.viewer-body {
+  display: flex;
+  flex: 1;
+  overflow: hidden;
+}
+
+/* ── Main content ── */
+.viewer-main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow-y: auto;
+  padding: 24px 24px 16px;
+  gap: 0;
+}
+
+.viewer-canvas-wrap {
+  position: relative;
+  width: 100%;
+  max-width: 680px;
+}
+
+/* Narration panel is rendered inside the canvas wrap so it overlays the bottom
+   of the image — always visible without scrolling even on full-height images */
+.viewer-canvas-wrap .narration-panel {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  max-width: none;
+  margin-top: 0;
+  border-radius: 0 0 12px 12px;
+  background: rgba(255, 255, 255, 0.93);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  border-top: 1px solid rgba(232, 228, 218, 0.8);
+  border-left: none;
+  border-right: none;
+  border-bottom: none;
+  box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.08);
+}
+
+/* Placeholder shown during first-page generation, before any image arrives */
+.image-canvas-placeholder {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  background: linear-gradient(180deg, #faf6ec 0%, #f3ecd9 100%);
+  border: 1px solid #e8e4da;
+  border-radius: 12px;
+  color: #8a8070;
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+}
+.image-canvas-placeholder .generating-spinner {
+  width: 32px;
+  height: 32px;
+  border: 3px solid #e8e0cc;
+  border-top-color: #5c6bc0;
+  border-radius: 50%;
+  animation: spin 0.9s linear infinite;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* ── Error ── */
+.viewer-error {
+  background: #fff3f3;
+  border: 1px solid #ffcdd2;
+  color: #c62828;
+  font-size: 13px;
+  padding: 10px 16px;
+  border-radius: 8px;
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  max-width: 680px;
+}
+
+.viewer-error button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #c62828;
+  font-size: 12px;
+  text-decoration: underline;
+  margin-left: auto;
+}
+
+/* ── Level info row ── */
+.viewer-level-info {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-top: 12px;
+  width: 100%;
+  max-width: 680px;
+}
+
+.viewer-level-info > span {
+  font-size: 12px;
+  color: #c0b8a8;
+  letter-spacing: 0.02em;
+}
+
+.viewer-back-btn {
+  background: none;
+  border: 1.5px solid #e0dbd0;
+  color: #7a7060;
+  font-size: 12px;
+  font-weight: 600;
+  padding: 5px 12px;
+  border-radius: 16px;
+  cursor: pointer;
+  transition: background 0.15s, border-color 0.15s, color 0.15s;
+}
+
+.viewer-back-btn:hover {
+  background: #5c6bc0;
+  border-color: #5c6bc0;
+  color: #fff;
+}
+
+/* ── Right panel: knowledge card + flashcard stack ── */
+.viewer-right {
+  width: 0;
+  flex-shrink: 0;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 0;
+  transition: width 0.28s cubic-bezier(0.16, 1, 0.3, 1),
+              padding 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+  /* Right panel scrolls independently */
+  overflow-y: auto;
+  border-left: 0px solid transparent;
+}
+
+.viewer-right-open {
+  width: 272px;
+  padding: 16px 14px 16px 10px;
+  border-left: 1px solid #ede9e0;
+}

@@ -1,0 +1,186 @@
+<mxfile host="app.diagrams.net" modified="2024-01-01T00:00:00.000Z" agent="Claude" version="21.0.0">
+  <diagram name="Gauth User Journey" id="gauth-journey">
+    <mxGraphModel dx="1422" dy="762" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1654" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+
+        <!-- ═══════════════════════════════════════════ -->
+        <!-- SECTION LABELS -->
+        <!-- ═══════════════════════════════════════════ -->
+        <mxCell id="label-1" value="3.1 全新探索" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;fontSize=13;fontStyle=1;fontColor=#1a73e8;" vertex="1" parent="1">
+          <mxGeometry x="40" y="20" width="160" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="label-2" value="3.2 画廊引导式探索" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;fontSize=13;fontStyle=1;fontColor=#188038;" vertex="1" parent="1">
+          <mxGeometry x="440" y="20" width="200" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="label-3" value="3.3 个人历史恢复" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;fontSize=13;fontStyle=1;fontColor=#7b1fa2;" vertex="1" parent="1">
+          <mxGeometry x="800" y="20" width="180" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="label-4" value="3.4 知识卡片交互" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;fontSize=13;fontStyle=1;fontColor=#e65100;" vertex="1" parent="1">
+          <mxGeometry x="1100" y="20" width="180" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="label-5" value="3.5 导出旅程" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;fontSize=13;fontStyle=1;fontColor=#c62828;" vertex="1" parent="1">
+          <mxGeometry x="1400" y="20" width="160" height="30" as="geometry" />
+        </mxCell>
+
+        <!-- ═══════════════════════════════════════════ -->
+        <!-- SHARED: HOME -->
+        <!-- ═══════════════════════════════════════════ -->
+        <mxCell id="home" value="🏠 Home" style="ellipse;whiteSpace=wrap;html=1;fillColor=#1a1a2e;strokeColor=#5c5cff;fontColor=#ffffff;fontSize=14;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="160" y="60" width="120" height="50" as="geometry" />
+        </mxCell>
+
+        <!-- ═══════════════════════════════════════════ -->
+        <!-- 3.1 全新探索 -->
+        <!-- ═══════════════════════════════════════════ -->
+        <mxCell id="input" value="输入话题" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#1a73e8;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="140" y="160" width="160" height="44" as="geometry" />
+        </mxCell>
+        <mxCell id="submit" value="Submit" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#1a73e8;strokeColor=#1557b0;fontColor=#ffffff;fontSize=12;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="160" y="254" width="120" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="viewer" value="跳转 Viewer&#xa;占位图 + 流式旁白" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e8f0fe;strokeColor=#1a73e8;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="130" y="344" width="180" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="wait1" value="⏳ 等待生图 30–60s" style="rhombus;whiteSpace=wrap;html=1;fillColor=#fff3e0;strokeColor=#e65100;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="140" y="444" width="160" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="layer1" value="🗺️ Layer 1&#xa;插图 Infographic" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#0f3460;strokeColor=#00d4ff;fontColor=#ffffff;fontSize=12;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="140" y="554" width="160" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="click" value="点击区域" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#1a73e8;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="155" y="654" width="130" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="stream" value="旁白即时流式输出&#xa;同步触发生图" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e8f0fe;strokeColor=#1a73e8;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="130" y="744" width="180" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="wait2" value="⏳ 等待生图 30–60s" style="rhombus;whiteSpace=wrap;html=1;fillColor=#fff3e0;strokeColor=#e65100;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="140" y="844" width="160" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="layer2" value="🔍 Layer 2&#xa;下钻插图 Drilled" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#0f3460;strokeColor=#00d4ff;fontColor=#ffffff;fontSize=12;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="140" y="954" width="160" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="repeat" value="无限重复 ↺" style="text;html=1;strokeColor=none;fillColor=none;align=center;fontSize=11;fontColor=#1a73e8;fontStyle=2;" vertex="1" parent="1">
+          <mxGeometry x="155" y="1014" width="130" height="20" as="geometry" />
+        </mxCell>
+
+        <!-- 3.1 arrows -->
+        <mxCell id="e1" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="home" target="input" parent="1"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e2" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="input" target="submit" parent="1"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e3" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="submit" target="viewer" parent="1"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e4" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="viewer" target="wait1" parent="1"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e5" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="wait1" target="layer1" parent="1"><mxGeometry relative="1" as="geometry"/><mxCell value="图片到达" style="edgeLabel;fontSize=10;" vertex="1" connectable="0" parent="e5"><mxGeometry x="-0.1" relative="1" as="geometry"/></mxCell></mxCell>
+        <mxCell id="e6" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="layer1" target="click" parent="1"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e7" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="click" target="stream" parent="1"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e8" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="stream" target="wait2" parent="1"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e9" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="wait2" target="layer2" parent="1"><mxGeometry relative="1" as="geometry"/><mxCell value="图片到达" style="edgeLabel;fontSize=10;" vertex="1" connectable="0" parent="e9"><mxGeometry x="-0.1" relative="1" as="geometry"/></mxCell></mxCell>
+        <mxCell id="e-loop" style="edgeStyle=orthogonalEdgeStyle;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;curved=1;" edge="1" source="layer2" target="click" parent="1"><mxGeometry relative="1" as="geometry"><Array as="points"><mxPoint x="360" y="979"/><mxPoint x="360" y="674"/></Array></mxGeometry></mxCell>
+
+        <!-- ═══════════════════════════════════════════ -->
+        <!-- 3.2 画廊引导式探索 -->
+        <!-- ═══════════════════════════════════════════ -->
+        <mxCell id="gallery" value="点击画廊卡片" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d9ead3;strokeColor=#188038;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="500" y="160" width="160" height="44" as="geometry" />
+        </mxCell>
+        <mxCell id="viewer2" value="Viewer: Layer 1&#xa;✨ 已探索热点高亮" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#0f3460;strokeColor=#00d4ff;fontColor=#ffffff;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="490" y="254" width="180" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="decision" value="用户点击位置?" style="rhombus;whiteSpace=wrap;html=1;fillColor=#d9ead3;strokeColor=#188038;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="500" y="354" width="160" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="instant" value="⚡ 即时加载&#xa;缓存子图 Zero Wait" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#1b4332;strokeColor=#40916c;fontColor=#b7e4c7;fontSize=12;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="490" y="464" width="180" height="50" as="geometry" />
+        </mxCell>
+
+        <!-- 3.2 arrows -->
+        <mxCell id="e10" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="home" target="gallery" parent="1"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e11" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="gallery" target="viewer2" parent="1"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e12" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="viewer2" target="decision" parent="1"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e13" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="decision" target="instant" parent="1"><mxGeometry relative="1" as="geometry"><mxCell value="命中热点" style="edgeLabel;fontSize=10;" vertex="1" connectable="0" parent="e13"><mxGeometry x="-0.1" relative="1" as="geometry"/></mxCell></mxGeometry></mxCell>
+        <mxCell id="e14" style="edgeStyle=orthogonalEdgeStyle;exitX=1;exitY=0.5;exitDx=0;exitDy=0;" edge="1" source="decision" target="stream" parent="1"><mxGeometry relative="1" as="geometry"><mxCell value="新区域" style="edgeLabel;fontSize=10;" vertex="1" connectable="0" parent="e14"><mxGeometry x="-0.1" relative="1" as="geometry"/></mxCell></mxGeometry></mxCell>
+
+        <!-- ═══════════════════════════════════════════ -->
+        <!-- 3.3 个人历史恢复 -->
+        <!-- ═══════════════════════════════════════════ -->
+        <mxCell id="sidebar" value="点击左侧边栏&#xa;历史话题" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#7b1fa2;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="840" y="160" width="160" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="restore" value="恢复上次 Session&#xa;最后访问 Layer" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#7b1fa2;strokeColor=#4a148c;fontColor=#ffffff;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="840" y="260" width="160" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="levelstrip" value="LevelStrip&#xa;所有已生成层可访问" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#7b1fa2;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="840" y="360" width="160" height="50" as="geometry" />
+        </mxCell>
+
+        <!-- 3.3 arrows -->
+        <mxCell id="e15" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="home" target="sidebar" parent="1"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e16" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="sidebar" target="restore" parent="1"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e17" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="restore" target="levelstrip" parent="1"><mxGeometry relative="1" as="geometry"/></mxCell>
+
+        <!-- ═══════════════════════════════════════════ -->
+        <!-- 3.4 知识卡片交互 -->
+        <!-- ═══════════════════════════════════════════ -->
+        <mxCell id="questions" value="旁白面板&#xa;展示 3 个问题" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fce4ec;strokeColor=#e65100;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="1130" y="344" width="160" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="clickq" value="用户点击问题" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fce4ec;strokeColor=#e65100;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="1130" y="444" width="160" height="44" as="geometry" />
+        </mxCell>
+        <mxCell id="flashcard" value="右侧面板滑入&#xa;可翻转闪卡 Flashcard" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e65100;strokeColor=#bf360c;fontColor=#ffffff;fontSize=12;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="1130" y="538" width="160" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="front" value="正面: 问题文本" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff3e0;strokeColor=#e65100;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="1060" y="638" width="130" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="back" value="背面: 2–3句答案&#xa;流式输出" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff3e0;strokeColor=#e65100;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="1210" y="638" width="130" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="stack" value="Knowledge Stack&#xa;可展开/收起/删除" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fce4ec;strokeColor=#e65100;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="1130" y="728" width="160" height="50" as="geometry" />
+        </mxCell>
+
+        <!-- 3.4 arrows -->
+        <mxCell id="e18" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="viewer" target="questions" parent="1"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e19" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="questions" target="clickq" parent="1"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e20" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="clickq" target="flashcard" parent="1"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e21" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="flashcard" target="front" parent="1"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e22" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="flashcard" target="back" parent="1"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e23" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="back" target="stack" parent="1"><mxGeometry relative="1" as="geometry"/></mxCell>
+
+        <!-- ═══════════════════════════════════════════ -->
+        <!-- 3.5 导出旅程 -->
+        <!-- ═══════════════════════════════════════════ -->
+        <mxCell id="export-trigger" value="已生成 2+ 层&#xa;点击 Export" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffcdd2;strokeColor=#c62828;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="1430" y="554" width="160" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="dropdown" value="下拉菜单" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#c62828;strokeColor=#7f0000;fontColor=#ffffff;fontSize=12;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="1440" y="654" width="140" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="png1" value="📄 当前页 PNG" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffcdd2;strokeColor=#c62828;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="1360" y="744" width="130" height="36" as="geometry" />
+        </mxCell>
+        <mxCell id="png2" value="📦 全层 PNG" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffcdd2;strokeColor=#c62828;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="1500" y="744" width="130" height="36" as="geometry" />
+        </mxCell>
+        <mxCell id="video" value="🎬 Journey Video" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffcdd2;strokeColor=#c62828;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="1430" y="800" width="160" height="36" as="geometry" />
+        </mxCell>
+        <mxCell id="download" value="客户端生成&#xa;自动触发下载" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#7f0000;strokeColor=#c62828;fontColor=#ffffff;fontSize=12;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="1440" y="886" width="140" height="50" as="geometry" />
+        </mxCell>
+
+        <!-- 3.5 arrows -->
+        <mxCell id="e24" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="layer2" target="export-trigger" parent="1"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e25" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="export-trigger" target="dropdown" parent="1"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e26" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="dropdown" target="png1" parent="1"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e27" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="dropdown" target="png2" parent="1"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e28" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="dropdown" target="video" parent="1"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e29" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="png1" target="download" parent="1"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e30" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="png2" target="download" parent="1"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e31" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="video" target="download" parent="1"><mxGeometry relative="1" as="geometry"/></mxCell>
+
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

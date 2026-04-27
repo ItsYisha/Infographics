@@ -1,0 +1,114 @@
+.knowledge-card {
+  background: #fff;
+  border: 1px solid #e0dbd0;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.10);
+  animation: kcSlideIn 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  flex-shrink: 0;
+}
+
+@keyframes kcSlideIn {
+  from { opacity: 0; transform: translateX(12px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+/* ── Header ── */
+.knowledge-card-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  padding: 12px 12px 10px;
+  background: linear-gradient(135deg, #f0f2ff 0%, #faf8f4 100%);
+  border-bottom: 1px solid #e8e4da;
+}
+
+.knowledge-card-icon {
+  font-size: 14px;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+.knowledge-card-question {
+  flex: 1;
+  font-size: 12.5px;
+  font-weight: 700;
+  color: #3a3530;
+  line-height: 1.45;
+  margin: 0;
+  letter-spacing: 0.01em;
+}
+
+.knowledge-card-close {
+  flex-shrink: 0;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #b0a898;
+  font-size: 13px;
+  line-height: 1;
+  padding: 0 2px;
+  transition: color 0.15s;
+}
+.knowledge-card-close:hover { color: #5a5448; }
+
+/* ── Body ── */
+.knowledge-card-body {
+  padding: 12px 14px;
+}
+
+.knowledge-card-answer {
+  font-size: 13px;
+  color: #4a443c;
+  line-height: 1.65;
+  margin: 0;
+}
+
+/* Cursor blink while streaming */
+.kc-cursor {
+  display: inline-block;
+  width: 2px;
+  height: 13px;
+  background: #5c6bc0;
+  margin-left: 2px;
+  vertical-align: middle;
+  animation: kcBlink 0.7s step-end infinite;
+}
+@keyframes kcBlink {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0; }
+}
+
+/* Loading skeleton */
+.knowledge-card-loading {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.kc-skeleton {
+  height: 13px;
+  border-radius: 4px;
+  background: linear-gradient(90deg, #ede9e0 25%, #f5f2eb 50%, #ede9e0 75%);
+  background-size: 200% 100%;
+  animation: kcShimmer 1.4s infinite;
+}
+
+.kc-skeleton-short { width: 60%; }
+
+@keyframes kcShimmer {
+  0%   { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+/* ── Footer ── */
+.knowledge-card-footer {
+  padding: 6px 14px 10px;
+  border-top: 1px solid #f0ece2;
+}
+
+.knowledge-card-footer-hint {
+  font-size: 10.5px;
+  color: #c0b8a8;
+  letter-spacing: 0.02em;
+}

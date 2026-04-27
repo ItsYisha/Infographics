@@ -1,0 +1,532 @@
+[
+  {
+    "id": "530be0719002b4e294fdaa605e279896",
+    "query": "How a jet engine works",
+    "thumbnailUrl": "/cache/530be0719002b4e294fdaa605e279896.png",
+    "timestamp": 1777218846126,
+    "avatarSeed": "aG93IGEgamV0IGVu",
+    "pages": [
+      {
+        "id": "530be0719002b4e294fdaa605e279896",
+        "imageUrl": "/cache/530be0719002b4e294fdaa605e279896.png"
+      }
+    ],
+    "clicks": 3
+  },
+  {
+    "id": "7518394fe7b515b7670e40deece5b0dc",
+    "query": "human brain",
+    "thumbnailUrl": "/cache/7518394fe7b515b7670e40deece5b0dc.png",
+    "timestamp": 1777219257519,
+    "avatarSeed": "aHVtYW4gYnJhaW4=",
+    "clicks": 6,
+    "pages": [
+      {
+        "id": "7518394fe7b515b7670e40deece5b0dc",
+        "imageUrl": "/cache/7518394fe7b515b7670e40deece5b0dc.png"
+      },
+      {
+        "id": "da80cdcdc91bf0566bb30f0de7007980",
+        "imageUrl": "/cache/da80cdcdc91bf0566bb30f0de7007980.png",
+        "click": {
+          "x": 0.49117647058823527,
+          "y": 0.3426470588235294
+        }
+      }
+    ],
+    "shares": 1
+  },
+  {
+    "id": "9d00286b959d13274186d8de5a6f6d9f",
+    "query": "Fall of the Roman Empire",
+    "thumbnailUrl": "/cache/9d00286b959d13274186d8de5a6f6d9f.png",
+    "timestamp": 1777247873959,
+    "avatarSeed": "ZmFsbCBvZiB0aGUg",
+    "clicks": 1,
+    "shares": 1,
+    "pages": [
+      {
+        "id": "9d00286b959d13274186d8de5a6f6d9f",
+        "imageUrl": "/cache/9d00286b959d13274186d8de5a6f6d9f.png"
+      }
+    ]
+  },
+  {
+    "id": "141c701e47404cc3a1498e45f66f596b",
+    "query": "test",
+    "thumbnailUrl": "/cache/141c701e47404cc3a1498e45f66f596b.png",
+    "timestamp": 1777248058705,
+    "avatarSeed": "dGVzdA==",
+    "clicks": 1,
+    "shares": 0,
+    "pages": [
+      {
+        "id": "141c701e47404cc3a1498e45f66f596b",
+        "imageUrl": "/cache/141c701e47404cc3a1498e45f66f596b.png"
+      }
+    ]
+  },
+  {
+    "id": "bda2a1a9c6200ead76a67de0a4ce05df",
+    "query": "Origins of the Middle East conflict",
+    "thumbnailUrl": "/cache/bda2a1a9c6200ead76a67de0a4ce05df.png",
+    "timestamp": 1777250251130,
+    "avatarSeed": "b3JpZ2lucyBvZiB0",
+    "clicks": 2,
+    "shares": 1,
+    "pages": [
+      {
+        "id": "bda2a1a9c6200ead76a67de0a4ce05df",
+        "imageUrl": "/cache/bda2a1a9c6200ead76a67de0a4ce05df.png"
+      },
+      {
+        "id": "0f5c0b0b3d89d225393a39e3af734ef8",
+        "imageUrl": "/cache/0f5c0b0b3d89d225393a39e3af734ef8.png",
+        "click": {
+          "x": 0.7323529411764705,
+          "y": 0.5897058823529412
+        }
+      }
+    ]
+  },
+  {
+    "id": "493c224019afa2976f49993eb1809656",
+    "query": "Inside a CPU chip",
+    "thumbnailUrl": "/cache/493c224019afa2976f49993eb1809656.png",
+    "timestamp": 1777251823633,
+    "avatarSeed": "aW5zaWRlIGEgY3B1",
+    "clicks": 1,
+    "shares": 0,
+    "pages": [
+      {
+        "id": "493c224019afa2976f49993eb1809656",
+        "imageUrl": "/cache/493c224019afa2976f49993eb1809656.png"
+      },
+      {
+        "id": "9ced98de834517787c49b3cbd9e95426",
+        "imageUrl": "/cache/9ced98de834517787c49b3cbd9e95426.png",
+        "click": {
+          "x": 0.07352941176470588,
+          "y": 0.3360294117647059
+        }
+      }
+    ]
+  },
+  {
+    "id": "d70232eae033a57f69a91f24cb7ab50a",
+    "query": "The Renaissance — how it started",
+    "thumbnailUrl": "/cache/d70232eae033a57f69a91f24cb7ab50a.png?v=1777255922685",
+    "timestamp": 1777255997806,
+    "avatarSeed": "dGhlIHJlbmFpc3Nh",
+    "clicks": 4,
+    "shares": 0,
+    "pages": [
+      {
+        "id": "d70232eae033a57f69a91f24cb7ab50a",
+        "imageUrl": "/cache/d70232eae033a57f69a91f24cb7ab50a.png?v=1777255922685"
+      },
+      {
+        "id": "95bc6bb3078dca8837bbdde0c8a7779e",
+        "imageUrl": "/cache/95bc6bb3078dca8837bbdde0c8a7779e.png",
+        "click": {
+          "x": 0.1338235294117647,
+          "y": 0.3610294117647059
+        }
+      },
+      {
+        "id": "693d4144fb1c43d744d826b3b2e6442b",
+        "imageUrl": "/cache/693d4144fb1c43d744d826b3b2e6442b.png",
+        "click": {
+          "x": 0.5588235294117647,
+          "y": 0.2985294117647059
+        }
+      }
+    ]
+  },
+  {
+    "id": "d435e99c80307f180e660712db86188d",
+    "query": "诺曼底战争",
+    "thumbnailUrl": "/cache/d435e99c80307f180e660712db86188d.png",
+    "timestamp": 1777260930546,
+    "avatarSeed": "6K+65pu85bqV5oiY",
+    "clicks": 0,
+    "shares": 1,
+    "pages": [
+      {
+        "id": "d435e99c80307f180e660712db86188d",
+        "imageUrl": "/cache/d435e99c80307f180e660712db86188d.png"
+      }
+    ]
+  },
+  {
+    "id": "8c63137a88b8cadc2cb9d23632fb94ae",
+    "query": "why renaissance happened in Italy",
+    "thumbnailUrl": "/cache/8c63137a88b8cadc2cb9d23632fb94ae.png?v=1777261522923",
+    "timestamp": 1777261633086,
+    "avatarSeed": "d2h5IHJlbmFpc3Nh",
+    "clicks": 0,
+    "shares": 0,
+    "pages": [
+      {
+        "id": "8c63137a88b8cadc2cb9d23632fb94ae",
+        "imageUrl": "/cache/8c63137a88b8cadc2cb9d23632fb94ae.png?v=1777261522923"
+      },
+      {
+        "id": "9ec21b4d55208dafc71137194a5b2d47",
+        "imageUrl": "/cache/9ec21b4d55208dafc71137194a5b2d47.png",
+        "click": {
+          "x": 0.47205882352941175,
+          "y": 0.3397058823529412
+        }
+      },
+      {
+        "id": "037eb9450c964cfd61e0032f050c0e7c",
+        "imageUrl": "/cache/037eb9450c964cfd61e0032f050c0e7c.png",
+        "click": {
+          "x": 0.625,
+          "y": 0.18970588235294117
+        }
+      }
+    ]
+  },
+  {
+    "id": "ea19935314ab035eda9ffa8f05e1984f",
+    "query": "Origins of the Middle East conflict",
+    "thumbnailUrl": "/cache/ea19935314ab035eda9ffa8f05e1984f.png",
+    "timestamp": 1777262794631,
+    "avatarSeed": "b3JpZ2lucyBvZiB0",
+    "clicks": 0,
+    "shares": 0,
+    "pages": [
+      {
+        "id": "ea19935314ab035eda9ffa8f05e1984f",
+        "imageUrl": "/cache/ea19935314ab035eda9ffa8f05e1984f.png"
+      },
+      {
+        "id": "38971fbe17f4ca568cf8b7f1d25b9b53",
+        "imageUrl": "/cache/38971fbe17f4ca568cf8b7f1d25b9b53.png",
+        "click": {
+          "x": 0.5941176470588235,
+          "y": 0.7617647058823529
+        }
+      }
+    ]
+  },
+  {
+    "id": "7aa5a49c8874afa4c2a2f6a2d2e162ae",
+    "query": "The solar system",
+    "thumbnailUrl": "/cache/7aa5a49c8874afa4c2a2f6a2d2e162ae.png",
+    "timestamp": 1777263998745,
+    "avatarSeed": "dGhlIHNvbGFyIHN5",
+    "clicks": 15,
+    "shares": 0,
+    "pages": [
+      {
+        "id": "7aa5a49c8874afa4c2a2f6a2d2e162ae",
+        "imageUrl": "/cache/7aa5a49c8874afa4c2a2f6a2d2e162ae.png"
+      },
+      {
+        "id": "e371132ec55fc6c43092b5e1e2705c4a",
+        "imageUrl": "/cache/e371132ec55fc6c43092b5e1e2705c4a.png",
+        "click": {
+          "x": 0.538235294117647,
+          "y": 0.25882352941176473
+        }
+      },
+      {
+        "id": "39ee418fb2e0d0f68dca60cffedb83db",
+        "imageUrl": "/cache/39ee418fb2e0d0f68dca60cffedb83db.png",
+        "click": {
+          "x": 0.4426470588235294,
+          "y": 0.40588235294117647
+        }
+      }
+    ],
+    "tree": {
+      "7aa5a49c8874afa4c2a2f6a2d2e162ae": {
+        "id": "7aa5a49c8874afa4c2a2f6a2d2e162ae",
+        "imageUrl": "/cache/7aa5a49c8874afa4c2a2f6a2d2e162ae.png",
+        "click": null,
+        "visitors": [],
+        "childIds": [
+          "e371132ec55fc6c43092b5e1e2705c4a",
+          "39ee418fb2e0d0f68dca60cffedb83db"
+        ]
+      },
+      "e371132ec55fc6c43092b5e1e2705c4a": {
+        "id": "e371132ec55fc6c43092b5e1e2705c4a",
+        "imageUrl": "/cache/e371132ec55fc6c43092b5e1e2705c4a.png",
+        "click": {
+          "x": 0.538235294117647,
+          "y": 0.25882352941176473
+        },
+        "visitors": [],
+        "childIds": []
+      },
+      "39ee418fb2e0d0f68dca60cffedb83db": {
+        "id": "39ee418fb2e0d0f68dca60cffedb83db",
+        "imageUrl": "/cache/39ee418fb2e0d0f68dca60cffedb83db.png",
+        "click": {
+          "x": 0.4426470588235294,
+          "y": 0.40588235294117647
+        },
+        "visitors": [
+          {
+            "seed": "fe4834cad9263ed72ee2e8da",
+            "timestamp": 1777270195493
+          }
+        ],
+        "childIds": []
+      }
+    }
+  },
+  {
+    "id": "f97c6b1f44f81ebf1f1584d5895bc621",
+    "query": "How a jet engine works",
+    "thumbnailUrl": "/cache/f97c6b1f44f81ebf1f1584d5895bc621.png",
+    "timestamp": 1777265036724,
+    "avatarSeed": "aG93IGEgamV0IGVu",
+    "clicks": 1,
+    "shares": 0,
+    "pages": [
+      {
+        "id": "f97c6b1f44f81ebf1f1584d5895bc621",
+        "imageUrl": "/cache/f97c6b1f44f81ebf1f1584d5895bc621.png"
+      },
+      {
+        "id": "845d9915d8f4508cb4dd99460774438b",
+        "imageUrl": "/cache/845d9915d8f4508cb4dd99460774438b.png",
+        "click": {
+          "x": 0.4470588235294118,
+          "y": 0.49264705882352944
+        }
+      }
+    ]
+  },
+  {
+    "id": "08b948b480165e800bcbe328d85fc682",
+    "query": "The Silk Road trade network",
+    "thumbnailUrl": "/cache/08b948b480165e800bcbe328d85fc682.png",
+    "timestamp": 1777265703792,
+    "avatarSeed": "dGhlIHNpbGsgcm9h",
+    "clicks": 23,
+    "shares": 3,
+    "pages": [
+      {
+        "id": "08b948b480165e800bcbe328d85fc682",
+        "imageUrl": "/cache/08b948b480165e800bcbe328d85fc682.png"
+      },
+      {
+        "id": "098415a101ad49b55fe0a4a6144d0999",
+        "imageUrl": "/cache/098415a101ad49b55fe0a4a6144d0999.png",
+        "click": {
+          "x": 0.5529411764705883,
+          "y": 0.4514705882352941
+        }
+      },
+      {
+        "id": "a5c770dfbc8453f7bbf5c185aff06f50",
+        "imageUrl": "/cache/a5c770dfbc8453f7bbf5c185aff06f50.png",
+        "click": {
+          "x": 0.5926470588235294,
+          "y": 0.4073529411764706
+        }
+      },
+      {
+        "id": "eb4baa213ea9f1b9cc67479fc4a938ac",
+        "imageUrl": "/cache/eb4baa213ea9f1b9cc67479fc4a938ac.png",
+        "click": {
+          "x": 0.7779411764705882,
+          "y": 0.2661764705882353
+        }
+      },
+      {
+        "id": "bdfc398ea715d0133cb17ed4c293e9e1",
+        "imageUrl": "/cache/bdfc398ea715d0133cb17ed4c293e9e1.png",
+        "click": {
+          "x": 0.36470588235294116,
+          "y": 0.3426470588235294
+        }
+      }
+    ],
+    "tree": {
+      "08b948b480165e800bcbe328d85fc682": {
+        "id": "08b948b480165e800bcbe328d85fc682",
+        "imageUrl": "/cache/08b948b480165e800bcbe328d85fc682.png",
+        "click": null,
+        "visitors": [],
+        "childIds": [
+          "098415a101ad49b55fe0a4a6144d0999",
+          "eb4baa213ea9f1b9cc67479fc4a938ac",
+          "bdfc398ea715d0133cb17ed4c293e9e1"
+        ]
+      },
+      "098415a101ad49b55fe0a4a6144d0999": {
+        "id": "098415a101ad49b55fe0a4a6144d0999",
+        "imageUrl": "/cache/098415a101ad49b55fe0a4a6144d0999.png",
+        "click": {
+          "x": 0.5529411764705883,
+          "y": 0.4514705882352941
+        },
+        "visitors": [],
+        "childIds": [
+          "a5c770dfbc8453f7bbf5c185aff06f50"
+        ],
+        "label": "Silk"
+      },
+      "a5c770dfbc8453f7bbf5c185aff06f50": {
+        "id": "a5c770dfbc8453f7bbf5c185aff06f50",
+        "imageUrl": "/cache/a5c770dfbc8453f7bbf5c185aff06f50.png",
+        "click": {
+          "x": 0.5926470588235294,
+          "y": 0.4073529411764706
+        },
+        "visitors": [],
+        "childIds": []
+      },
+      "eb4baa213ea9f1b9cc67479fc4a938ac": {
+        "id": "eb4baa213ea9f1b9cc67479fc4a938ac",
+        "imageUrl": "/cache/eb4baa213ea9f1b9cc67479fc4a938ac.png",
+        "click": {
+          "x": 0.7779411764705882,
+          "y": 0.2661764705882353
+        },
+        "visitors": [
+          {
+            "seed": "fe4834cad9263ed72ee2e8da",
+            "timestamp": 1777270939077
+          }
+        ],
+        "childIds": [],
+        "label": "The Silk Road"
+      },
+      "bdfc398ea715d0133cb17ed4c293e9e1": {
+        "id": "bdfc398ea715d0133cb17ed4c293e9e1",
+        "imageUrl": "/cache/bdfc398ea715d0133cb17ed4c293e9e1.png",
+        "click": {
+          "x": 0.36470588235294116,
+          "y": 0.3426470588235294
+        },
+        "visitors": [
+          {
+            "seed": "fe4834cad9263ed72ee2e8da",
+            "timestamp": 1777271191218
+          }
+        ],
+        "childIds": [],
+        "label": "Central Asian Trade Cities"
+      }
+    }
+  },
+  {
+    "id": "2796ae95a6c29b60dc30fb33eb2a68b3",
+    "query": "The Age of Exploration",
+    "thumbnailUrl": "/cache/2796ae95a6c29b60dc30fb33eb2a68b3.png",
+    "timestamp": 1777266683748,
+    "avatarSeed": "dGhlIGFnZSBvZiBl",
+    "clicks": 0,
+    "shares": 1,
+    "pages": [
+      {
+        "id": "2796ae95a6c29b60dc30fb33eb2a68b3",
+        "imageUrl": "/cache/2796ae95a6c29b60dc30fb33eb2a68b3.png"
+      },
+      {
+        "id": "21c359eb48125c59c685cb8c2c0464bc",
+        "imageUrl": "/cache/21c359eb48125c59c685cb8c2c0464bc.png",
+        "click": {
+          "x": 0.8455882352941176,
+          "y": 0.6558823529411765
+        }
+      }
+    ]
+  },
+  {
+    "id": "299d4649800dafd488fe29bb87f7ac02",
+    "query": "The Industrial Revolution",
+    "thumbnailUrl": "/cache/299d4649800dafd488fe29bb87f7ac02.png",
+    "timestamp": 1777267719885,
+    "avatarSeed": "dGhlIGluZHVzdHJp",
+    "clicks": 1,
+    "shares": 0,
+    "pages": [
+      {
+        "id": "299d4649800dafd488fe29bb87f7ac02",
+        "imageUrl": "/cache/299d4649800dafd488fe29bb87f7ac02.png"
+      }
+    ]
+  },
+  {
+    "id": "72c462214425e8a4a3d8502501905ec4",
+    "query": "One Hundred Years of Solitude storyline",
+    "thumbnailUrl": "/cache/72c462214425e8a4a3d8502501905ec4.png",
+    "timestamp": 1777288418984,
+    "avatarSeed": "b25lIGh1bmRyZWQg",
+    "clicks": 0,
+    "shares": 1,
+    "pages": [
+      {
+        "id": "72c462214425e8a4a3d8502501905ec4",
+        "imageUrl": "/cache/72c462214425e8a4a3d8502501905ec4.png"
+      }
+    ],
+    "tree": {
+      "72c462214425e8a4a3d8502501905ec4": {
+        "id": "72c462214425e8a4a3d8502501905ec4",
+        "imageUrl": "/cache/72c462214425e8a4a3d8502501905ec4.png",
+        "click": null,
+        "visitors": [],
+        "childIds": []
+      }
+    }
+  },
+  {
+    "id": "292abaa854cddae7b5e0bc8fdff518e8",
+    "query": "One Hundred Years of Solitude",
+    "thumbnailUrl": "/cache/292abaa854cddae7b5e0bc8fdff518e8.png",
+    "timestamp": 1777291659627,
+    "avatarSeed": "b25lIGh1bmRyZWQg",
+    "clicks": 0,
+    "shares": 0,
+    "pages": [
+      {
+        "id": "292abaa854cddae7b5e0bc8fdff518e8",
+        "imageUrl": "/cache/292abaa854cddae7b5e0bc8fdff518e8.png"
+      },
+      {
+        "id": "439a88e2c7966a67ce8d3858a1c2978d",
+        "imageUrl": "/cache/439a88e2c7966a67ce8d3858a1c2978d.png",
+        "click": {
+          "x": 0.23823529411764705,
+          "y": 0.6338235294117647
+        }
+      }
+    ],
+    "tree": {
+      "292abaa854cddae7b5e0bc8fdff518e8": {
+        "id": "292abaa854cddae7b5e0bc8fdff518e8",
+        "imageUrl": "/cache/292abaa854cddae7b5e0bc8fdff518e8.png",
+        "click": null,
+        "visitors": [],
+        "childIds": [
+          "439a88e2c7966a67ce8d3858a1c2978d"
+        ]
+      },
+      "439a88e2c7966a67ce8d3858a1c2978d": {
+        "id": "439a88e2c7966a67ce8d3858a1c2978d",
+        "imageUrl": "/cache/439a88e2c7966a67ce8d3858a1c2978d.png",
+        "click": {
+          "x": 0.23823529411764705,
+          "y": 0.6338235294117647
+        },
+        "visitors": [
+          {
+            "seed": "fe4834cad9263ed72ee2e8da",
+            "timestamp": 1777291796687
+          }
+        ],
+        "childIds": []
+      }
+    }
+  }
+]

@@ -1,0 +1,75 @@
+.breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  padding: 0 16px;
+  font-size: 13px;
+  background: #fafafa;
+  border-bottom: 1px solid #eee;
+  min-height: 42px;
+  overflow: hidden;
+}
+
+/* Home icon — small, sits before the path */
+.breadcrumb-home {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 15px;
+  color: #bbb;
+  padding: 4px 6px 4px 2px;
+  border-radius: 4px;
+  flex-shrink: 0;
+  line-height: 1;
+  transition: color 0.15s;
+}
+.breadcrumb-home:hover {
+  color: #555;
+}
+
+/* › separator */
+.breadcrumb-sep {
+  color: #d0cdc5;
+  font-size: 12px;
+  margin: 0 2px;
+  flex-shrink: 0;
+  user-select: none;
+}
+
+.breadcrumb-segment {
+  display: flex;
+  align-items: center;
+  min-width: 0;  /* allow flex children to shrink */
+}
+
+.breadcrumb-item {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 13px;
+  color: #a09888;
+  padding: 4px 6px;
+  border-radius: 4px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  transition: color 0.15s, background 0.15s;
+  max-width: 180px;
+}
+.breadcrumb-item:hover:not(:disabled) {
+  color: #444;
+  background: #f0ede6;
+}
+
+/* Root item (the topic query) — slightly wider allowance */
+.breadcrumb-item.root {
+  max-width: 220px;
+}
+
+/* Active (current) layer — dark, no hover state */
+.breadcrumb-item.active {
+  color: #3a3530;
+  font-weight: 600;
+  cursor: default;
+  max-width: 240px;
+}

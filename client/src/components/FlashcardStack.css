@@ -1,0 +1,198 @@
+/* ── Container ─────────────────────────────────────────────────── */
+.flashcard-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;          /* loose spacing between cards */
+  padding: 4px 2px;  /* slight inset so box-shadows aren't clipped */
+}
+
+/* ── Per-card wrapper (provides perspective + remove btn positioning) ── */
+.flashcard-scene {
+  position: relative;
+  perspective: 900px;
+  /* Stagger entrance animation */
+  animation: fcAppear 0.35s cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation-delay: var(--delay, 0s);
+}
+
+@keyframes fcAppear {
+  from { opacity: 0; transform: translateY(10px) scale(0.96); }
+  to   { opacity: 1; transform: translateY(0)   scale(1);    }
+}
+
+/* Remove button — top-right corner, outside flip surface */
+.flashcard-remove {
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  z-index: 10;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: #fff;
+  border: 1px solid #ddd8ce;
+  color: #b0a898;
+  font-size: 10px;
+  line-height: 1;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.12);
+  transition: background 0.15s, color 0.15s, border-color 0.15s;
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+
+.flashcard-scene:hover .flashcard-remove {
+  opacity: 1;
+}
+
+.flashcard-remove:hover {
+  background: #fff0f0;
+  color: #c62828;
+  border-color: #ffcdd2;
+}
+
+/* ── The flipping surface ── */
+.flashcard-inner {
+  position: relative;
+  width: 100%;
+  /* Height is set to the taller of front/back via min-height;
+     we use a fixed value here because answers are constrained to 2-3 sentences */
+  min-height: 148px;
+  transform-style: preserve-3d;
+  transition: transform 0.52s cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: pointer;
+  border-radius: 14px;
+  outline: none;
+}
+
+.flashcard-inner:focus-visible {
+  box-shadow: 0 0 0 3px rgba(92, 107, 192, 0.35);
+}
+
+.flashcard-inner.is-flipped {
+  transform: rotateY(180deg);
+}
+
+/* ── Shared face styles ── */
+.flashcard-face {
+  position: absolute;
+  inset: 0;
+  border-radius: 14px;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  display: flex;
+  flex-direction: column;
+  padding: 16px 15px 12px;
+  overflow: hidden;
+  box-shadow: 0 3px 16px rgba(0, 0, 0, 0.09), 0 1px 4px rgba(0, 0, 0, 0.06);
+}
+
+/* ── FRONT — warm cream ── */
+.flashcard-front {
+  background: linear-gradient(145deg, #fdfaf5 0%, #f7f3ea 100%);
+  border: 1px solid #e4dfd4;
+}
+
+/* ── BACK — cool lavender ── */
+.flashcard-back {
+  background: linear-gradient(145deg, #f2f4ff 0%, #eaedff 100%);
+  border: 1px solid #c8cef5;
+  transform: rotateY(180deg);
+}
+
+/* ── "Q" / "A" label badge ── */
+.flashcard-label {
+  position: absolute;
+  top: 10px;
+  right: 12px;
+  font-size: 11px;
+  font-weight: 800;
+  color: #c0b8a8;
+  letter-spacing: 0.06em;
+  line-height: 1;
+  user-select: none;
+}
+
+.flashcard-label-a {
+  color: #8891cc;
+}
+
+/* ── Question text ── */
+.flashcard-question {
+  flex: 1;
+  font-size: 13px;
+  font-weight: 650;
+  color: #3a3530;
+  line-height: 1.5;
+  margin: 0;
+  /* Vertically center the question in the available space */
+  display: flex;
+  align-items: center;
+}
+
+/* ── Answer text ── */
+.flashcard-answer {
+  flex: 1;
+  font-size: 12.5px;
+  color: #3a3d6b;
+  line-height: 1.62;
+  margin: 0;
+  overflow-y: auto;
+}
+
+/* Cursor blink while streaming */
+.fc-cursor {
+  display: inline-block;
+  width: 2px;
+  height: 12px;
+  background: #5c6bc0;
+  margin-left: 2px;
+  vertical-align: middle;
+  animation: fcBlink 0.7s step-end infinite;
+}
+@keyframes fcBlink {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0; }
+}
+
+/* ── Flip hint ── */
+.flashcard-flip-hint {
+  margin-top: auto;
+  padding-top: 8px;
+  font-size: 10px;
+  color: #b0a898;
+  letter-spacing: 0.03em;
+  user-select: none;
+  flex-shrink: 0;
+}
+
+.flashcard-flip-hint-back {
+  color: #8891cc;
+}
+
+/* ── Loading skeleton (back face, while answer streams) ── */
+.flashcard-loading {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+  justify-content: center;
+}
+
+.fc-skeleton {
+  height: 12px;
+  border-radius: 4px;
+  background: linear-gradient(90deg, #d8dcf5 25%, #e8eaff 50%, #d8dcf5 75%);
+  background-size: 200% 100%;
+  animation: fcShimmer 1.4s infinite;
+}
+.fc-skeleton-short   { width: 75%; }
+.fc-skeleton-shorter { width: 45%; }
+
+@keyframes fcShimmer {
+  0%   { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
