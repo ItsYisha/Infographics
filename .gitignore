@@ -1,0 +1,25 @@
+# Environment variables (secrets)
+.env
+.env.*
+!.env.example
+
+# Dependencies
+node_modules/
+client/node_modules/
+server/node_modules/
+
+# Build output
+client/dist/
+
+# Generated cache & data (runtime files)
+server/cache/
+server/gallery.json
+
+# OS / editor
+.DS_Store
+*.swp
+.vscode/
+.idea/
+
+# Claude local config
+.claude/
