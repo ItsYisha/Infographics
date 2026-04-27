@@ -4,9 +4,7 @@ import Breadcrumb from '../components/Breadcrumb';
 import ImageCanvas from '../components/ImageCanvas';
 import NarrationPanel from '../components/NarrationPanel';
 import ExportButton from '../components/ExportButton';
-import FlashcardStack from '../components/FlashcardStack';
 import { useNarration } from '../hooks/useNarration';
-import { useFlashcards } from '../hooks/useFlashcards';
 import './Viewer.css';
 
 export default function Viewer({ burrow }) {
@@ -21,37 +19,24 @@ export default function Viewer({ burrow }) {
     goToLevel,
     reset,
     regenerate,
-    setPageLabel,
   } = burrow;
   const {
-    text: narration,
+    facts,
     streaming: narStreaming,
     startNarration,
     startTopicNarration,
     clearNarration,
   } = useNarration();
-  const {
-    cards: flashcards,
-    askedQuestions,
-    addQuestion,
-    flipCard,
-    removeCard,
-    clearAll: clearFlashcards,
-  } = useFlashcards();
   const navigate = useNavigate();
 
-  // Redirect to home only if there's nothing happening. While the first image
-  // is generating (pendingQuery set), pages may be empty — stay put and show
-  // the streaming topic narration.
+  // Redirect to home only if there's nothing happening.
   useEffect(() => {
     if (!pages.length && !generating && !pendingQuery) {
       navigate('/', { replace: true });
     }
   }, [pages.length, generating, pendingQuery, navigate]);
 
-  // When the user lands on Viewer with a pendingQuery (just submitted from
-  // Home), kick off the topic-narration stream immediately so they have
-  // something to read during the 30-60s image wait.
+  // Kick off topic narration immediately when Viewer first loads with a pending query.
   const startedTopicFor = useRef(null);
   useEffect(() => {
     if (pendingQuery && startedTopicFor.current !== pendingQuery) {
@@ -65,12 +50,11 @@ export default function Viewer({ burrow }) {
     if (!currentPage || generating) return;
     clearNarration();
 
-    // Don't narrate instant hint-spot loads — the image is already cached,
-    // there's nothing to "wait for" and no generation happening.
+    // Don't narrate instant hint-spot loads — the image is already cached.
     const hints = burrow.getHintsForPage(currentPage.id);
     const isInstantLoad = hints.some(h => Math.hypot(h.x - x, h.y - y) < 0.05);
     if (!isInstantLoad) {
-      startNarration(currentPage.id, x, y, currentPage.query, currentPage.label);
+      startNarration(currentPage.id, x, y);
     }
 
     drillDown(x, y);
@@ -97,56 +81,19 @@ export default function Viewer({ burrow }) {
     regenerate();
   }, [generating, regenerate, clearNarration]);
 
-  // Keep the questions card visible for 800ms after BOTH the image finishes
-  // generating AND the narration stream finishes — whichever comes last.
-  useEffect(() => {
-    const t = (!generating && !narStreaming && !!narration)
-      ? setTimeout(clearNarration, 800)
-      : undefined;
-    return () => clearTimeout(t);
-  }, [generating, narStreaming, narration, clearNarration]);
-
-  // Clear narration whenever the user navigates to an existing page
-  // (back via breadcrumb, "Go up a level", or any goToLevel call).
-  // We only want narration visible during active generation/streaming.
+  // Clear narration whenever user navigates to an existing page (not generating).
   const prevGeneratingRef = useRef(false);
   useEffect(() => {
     const wasGenerating = prevGeneratingRef.current;
     prevGeneratingRef.current = generating;
-    // currentPage changed while NOT generating → user navigated to existing page
     if (!generating && !wasGenerating) {
       clearNarration();
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentPage?.id]);
 
-  // Extract the "Zooming into: X" header from narration text for page labelling.
-  const narrationLabel = (() => {
-    const ls = narration.split('\n').filter(l => l.trim());
-    const headerLine = ls.find(l => l.startsWith('Zooming into:'));
-    const hasBullet   = ls.some(l => l.startsWith('•'));
-    if (!headerLine || !hasBullet) return null;
-    return headerLine.replace('Zooming into:', '').trim() || null;
-  })();
-
-  useEffect(() => {
-    if (!narrationLabel || pages.length < 2) return;
-    const lastIdx = pages.length - 1;
-    if (!pages[lastIdx].label) {
-      setPageLabel(lastIdx, narrationLabel);
-    }
-  }, [narrationLabel, pages.length, setPageLabel]);
-
-  // ── Question click from NarrationPanel ───────────────────────────────────
-  const handleQuestionClick = useCallback((question, context) => {
-    addQuestion(question, context);
-  }, [addQuestion]);
-
   const isInitialLoad = !currentPage && (generating || pendingQuery);
   if (!currentPage && !isInitialLoad) return null;
-
-  const showNarration = generating || narStreaming || !!narration;
-  const hasRightPanel = flashcards.length > 0;
 
   return (
     <div className="viewer">
@@ -183,7 +130,6 @@ export default function Viewer({ burrow }) {
 
       {/* Main area */}
       <div className="viewer-body">
-        {/* Center: image + narration */}
         <main className="viewer-main">
           {error && (
             <div className="viewer-error">
@@ -207,13 +153,11 @@ export default function Viewer({ burrow }) {
               </div>
             )}
 
+            {/* Fun Facts overlay — centered on the image while generating */}
             <NarrationPanel
-              text={narration}
+              facts={facts}
               streaming={narStreaming}
-              visible={showNarration}
               generating={generating}
-              onQuestionClick={handleQuestionClick}
-              askedQuestions={askedQuestions}
             />
           </div>
 
@@ -234,15 +178,6 @@ export default function Viewer({ burrow }) {
             )}
           </div>
         </main>
-
-        {/* Right: flippable knowledge cards */}
-        <aside className={`viewer-right ${hasRightPanel ? 'viewer-right-open' : ''}`}>
-          <FlashcardStack
-            cards={flashcards}
-            onFlip={flipCard}
-            onRemove={removeCard}
-          />
-        </aside>
       </div>
     </div>
   );

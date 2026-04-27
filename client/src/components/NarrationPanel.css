@@ -1,202 +1,103 @@
-.narration-panel {
-  width: 100%;
-  max-width: 680px;
-  margin-top: 12px;
-  background: #fff;
-  border: 1px solid #e8e4da;
-  border-radius: 12px;
-  overflow: hidden;
-  opacity: 0;
-  transition: opacity 0.5s ease;
-  box-shadow: 0 2px 12px rgba(0,0,0,0.06);
-}
-
-.narration-panel.visible {
-  opacity: 1;
-  animation: slideUp 0.3s ease forwards;
-}
-
-.narration-panel.fading {
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.6s ease;
-}
-
-@keyframes slideUp {
-  from { opacity: 0; transform: translateY(6px); }
-  to   { opacity: 1; transform: translateY(0); }
-}
-
-/* ── Header ── */
-.narration-header {
+/* ── Fun Facts overlay — sits on top of the image canvas ── */
+.fun-facts-overlay {
+  position: absolute;
+  inset: 0;
+  border-radius: 12px;           /* match ImageCanvas border-radius */
+  background: rgba(14, 12, 10, 0.68);
+  backdrop-filter: blur(3px);
+  -webkit-backdrop-filter: blur(3px);
   display: flex;
   align-items: center;
-  gap: 8px;
-  padding: 12px 16px 10px;
-  border-bottom: 1px solid #f0ece2;
-  background: #faf8f4;
-  min-height: 44px;
+  justify-content: center;
+  padding: 32px;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  pointer-events: none;
+  z-index: 10;
 }
 
-.narration-scope-icon {
-  font-size: 15px;
-  flex-shrink: 0;
+.fun-facts-visible {
+  opacity: 1;
 }
 
-.narration-scope-text {
-  font-size: 13px;
-  font-weight: 700;
-  color: #3a3530;
-  letter-spacing: 0.01em;
-}
-
-.narration-skeleton {
-  display: inline-block;
-  width: 140px;
-  height: 14px;
-  background: linear-gradient(90deg, #ede9e0 25%, #f5f2eb 50%, #ede9e0 75%);
-  background-size: 200% 100%;
-  border-radius: 4px;
-  animation: shimmer 1.4s infinite;
-  vertical-align: middle;
-}
-
-@keyframes shimmer {
-  0%   { background-position: 200% 0; }
-  100% { background-position: -200% 0; }
-}
-
-/* ── Questions list ── */
-.narration-questions {
-  list-style: none;
-  padding: 10px 16px 12px;
-  margin: 0;
+/* ── Card container ── */
+.fun-facts-inner {
   display: flex;
   flex-direction: column;
-  gap: 6px;
-}
-
-.narration-q {
-  font-size: 13px;
-  color: #5a5448;
-  line-height: 1.55;
-  padding: 6px 28px 6px 14px;
-  border-left: 2px solid #d4cfc5;
-  border-radius: 0 6px 6px 0;
-  background: #faf9f6;
-  opacity: 0;
-  animation: questionReveal 0.55s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-  position: relative;
-}
-
-/* "?" / "✦" badge — rendered as a <span> so it reacts to hover/active state */
-.narration-q-ask {
-  position: absolute;
-  right: 10px;
-  top: 50%;
-  transform: translateY(-50%);
-  font-size: 11px;
-  color: #c0b8a8;
-  font-weight: 700;
-  transition: color 0.15s, transform 0.15s;
-}
-
-/* Clickable questions get a pointer and hover lift */
-.narration-q-clickable {
-  cursor: pointer;
-  transition: background 0.15s, border-color 0.15s, transform 0.1s;
-}
-
-.narration-q-clickable:hover {
-  background: #eeeaf8;
-  border-left-color: #5c6bc0;
-  transform: translateX(2px);
-}
-
-.narration-q-clickable:hover .narration-q-ask {
-  color: #5c6bc0;
-  transform: translateY(-50%) scale(1.2);
-}
-
-/* Asked = already has a flashcard in the stack */
-.narration-q-asked {
-  background: #f0faf0;
-  border-left-color: #81c784;
-  color: #3a5a3a;
-}
-
-.narration-q-asked .narration-q-ask {
-  color: #66bb6a;
-}
-
-/* Partial line: same entrance animation, slightly dimmer while still typing */
-.narration-q-partial {
-  color: #8a8070;
-}
-.narration-q-partial::after {
-  display: none;
-}
-
-@keyframes questionReveal {
-  0%   { opacity: 0; transform: translateY(10px); filter: blur(6px); }
-  60%  { filter: blur(0); }
-  100% { opacity: 1; transform: translateY(0);  filter: blur(0); }
-}
-
-/* ── Progress bar ── */
-.narration-progress {
-  display: flex;
   align-items: center;
-  gap: 10px;
-  padding: 8px 16px 10px;
-  border-top: 1px solid #f0ece2;
+  gap: 18px;
+  max-width: 520px;
+  width: 100%;
+  text-align: center;
 }
 
-.narration-progress-bar {
-  flex: 1;
-  height: 3px;
-  border-radius: 2px;
-  background: #ede9e0;
-  overflow: hidden;
-  position: relative;
-}
-
-.narration-progress-bar::after {
-  content: '';
-  position: absolute;
-  top: 0; left: -40%;
-  height: 100%;
-  width: 40%;
-  border-radius: 2px;
-  background: #5c6bc0;
-  animation: indeterminate 1.6s ease-in-out infinite;
-}
-
-@keyframes indeterminate {
-  0%   { left: -40%; }
-  100% { left: 140%; }
-}
-
-.narration-progress-label {
+/* ── "✦ Fun Fact" label ── */
+.fun-facts-label {
   font-size: 11px;
-  color: #b0a898;
-  white-space: nowrap;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(255, 220, 100, 0.75);
+}
+
+/* ── Fact text ── */
+.fun-facts-text {
+  margin: 0;
+  font-size: clamp(15px, 2vw, 19px);
   font-weight: 500;
-  letter-spacing: 0.02em;
+  color: #fff;
+  line-height: 1.65;
 }
 
-/* ── Cursor ── */
-.narration-cursor {
-  display: inline-block;
-  width: 2px;
-  height: 13px;
-  background: #9a8f7a;
-  margin-left: 2px;
-  vertical-align: middle;
-  animation: blink 0.7s step-end infinite;
+@keyframes factEnter {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0);    }
 }
 
-@keyframes blink {
-  0%, 100% { opacity: 1; }
-  50%       { opacity: 0; }
+@keyframes factExit {
+  from { opacity: 1; transform: translateY(0);     }
+  to   { opacity: 0; transform: translateY(-10px); }
+}
+
+.fun-facts-enter {
+  animation: factEnter 0.38s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.fun-facts-exit {
+  animation: factExit 0.32s ease forwards;
+}
+
+/* ── Footer: dots + counter ── */
+.fun-facts-footer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.fun-facts-dots {
+  display: flex;
+  gap: 5px;
+  flex-wrap: wrap;
+  justify-content: center;
+  max-width: 240px;
+}
+
+.fun-facts-dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.25);
+  transition: background 0.25s, transform 0.25s;
+}
+
+.fun-facts-dot-active {
+  background: rgba(255, 220, 100, 0.85);
+  transform: scale(1.35);
+}
+
+.fun-facts-counter {
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.3);
+  letter-spacing: 0.05em;
 }

@@ -75,25 +75,8 @@
   max-width: 680px;
 }
 
-/* Narration panel is rendered inside the canvas wrap so it overlays the bottom
-   of the image — always visible without scrolling even on full-height images */
-.viewer-canvas-wrap .narration-panel {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  max-width: none;
-  margin-top: 0;
-  border-radius: 0 0 12px 12px;
-  background: rgba(255, 255, 255, 0.93);
-  backdrop-filter: blur(6px);
-  -webkit-backdrop-filter: blur(6px);
-  border-top: 1px solid rgba(232, 228, 218, 0.8);
-  border-left: none;
-  border-right: none;
-  border-bottom: none;
-  box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.08);
-}
+/* Fun Facts overlay is absolutely positioned inside viewer-canvas-wrap —
+   handled entirely in NarrationPanel.css */
 
 /* Placeholder shown during first-page generation, before any image arrives */
 .image-canvas-placeholder {
@@ -182,24 +165,3 @@
   color: #fff;
 }
 
-/* ── Right panel: knowledge card + flashcard stack ── */
-.viewer-right {
-  width: 0;
-  flex-shrink: 0;
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  padding: 0;
-  transition: width 0.28s cubic-bezier(0.16, 1, 0.3, 1),
-              padding 0.28s cubic-bezier(0.16, 1, 0.3, 1);
-  /* Right panel scrolls independently */
-  overflow-y: auto;
-  border-left: 0px solid transparent;
-}
-
-.viewer-right-open {
-  width: 272px;
-  padding: 16px 14px 16px 10px;
-  border-left: 1px solid #ede9e0;
-}

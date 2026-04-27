@@ -1,17 +1,18 @@
 import { useState, useRef, useCallback } from 'react';
 
 /**
- * Streams narration text from an SSE endpoint via fetch + ReadableStream.
+ * Streams fun facts from an SSE endpoint via fetch + ReadableStream.
  * (Not EventSource — Vite's dev-proxy buffers EventSource responses.)
  *
- * Two trigger modes share the same stream parser:
- *   - startTopicNarration(query)            → during first-page generation
- *   - startNarration(parentId, x, y)        → during child-page drill-down
+ * Server emits: data: {"fact": "..."}\n\n  (one per completed FACT: line)
+ * This hook collects them into a `facts` string array.
  *
- * Returns { text, streaming, startNarration, startTopicNarration, clearNarration }.
+ * Two trigger modes:
+ *   - startTopicNarration(query)        → during first-page generation
+ *   - startNarration(parentId, x, y)    → during child-page drill-down
  */
 export function useNarration() {
-  const [text, setText] = useState('');
+  const [facts, setFacts] = useState([]);
   const [streaming, setStreaming] = useState(false);
   const abortRef = useRef(null);
 
@@ -20,17 +21,17 @@ export function useNarration() {
       abortRef.current.abort();
       abortRef.current = null;
     }
-    setText('');
+    setFacts([]);
     setStreaming(false);
   }, []);
 
-  /** Internal: start streaming from a given URL. */
+  /** Internal: start streaming facts from a given URL. */
   const _startStream = useCallback((url) => {
     if (abortRef.current) abortRef.current.abort();
     const controller = new AbortController();
     abortRef.current = controller;
 
-    setText('');
+    setFacts([]);
     setStreaming(true);
 
     (async () => {
@@ -51,9 +52,9 @@ export function useNarration() {
 
           buffer += decoder.decode(value, { stream: true });
 
-          // SSE events come in as "data: ...\n\n" — split on blank line
+          // SSE events: "data: ...\n\n"
           const parts = buffer.split('\n\n');
-          buffer = parts.pop() ?? ''; // keep incomplete trailing chunk
+          buffer = parts.pop() ?? '';
 
           for (const part of parts) {
             for (const line of part.split('\n')) {
@@ -67,9 +68,9 @@ export function useNarration() {
               }
 
               try {
-                const { token, error } = JSON.parse(data);
+                const { fact, error } = JSON.parse(data);
                 if (error) { setStreaming(false); return; }
-                if (token) setText(prev => prev + token);
+                if (fact)  setFacts(prev => [...prev, fact]);
               } catch {
                 // ignore malformed JSON
               }
@@ -86,20 +87,15 @@ export function useNarration() {
     })();
   }, []);
 
-  /** First-page mode — narrates the typed topic while initial image generates. */
+  /** First-page mode — facts about the typed topic while initial image generates. */
   const startTopicNarration = useCallback((query) => {
     _startStream(`/api/narrate-topic?query=${encodeURIComponent(query)}`);
   }, [_startStream]);
 
-  /** Drill-down mode — narrates the clicked element.
-   *  topic: root query string (e.g. "why renaissance happened in Italy")
-   *  label: current page label if available (e.g. "Florence") */
-  const startNarration = useCallback((parentId, x, y, topic, label) => {
-    const params = new URLSearchParams({ parentId, x, y });
-    if (topic) params.set('topic', topic);
-    if (label) params.set('label', label);
-    _startStream(`/api/narrate?${params}`);
+  /** Drill-down mode — facts about the clicked element. */
+  const startNarration = useCallback((parentId, x, y) => {
+    _startStream(`/api/narrate?parentId=${encodeURIComponent(parentId)}&x=${x}&y=${y}`);
   }, [_startStream]);
 
-  return { text, streaming, startNarration, startTopicNarration, clearNarration };
+  return { facts, streaming, startNarration, startTopicNarration, clearNarration };
 }

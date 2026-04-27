@@ -6,9 +6,8 @@ const OpenAI = require('openai');
 const {
   firstPagePrompt,
   childPagePrompt,
-  questionsPrompt,
-  questionsPromptText,
-  topicNarrationPrompt,
+  funFactsPrompt,
+  topicFunFactsPrompt,
 } = require('./prompts');
 
 const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
@@ -232,12 +231,35 @@ app.post('/api/page', async (req, res) => {
   }
 });
 
+// ─── SSE helper: stream FACT: lines as structured { fact } events ────────────
+async function streamFacts(openaiStream, res) {
+  let buf = '';
+  for await (const chunk of openaiStream) {
+    const token = chunk.choices[0]?.delta?.content;
+    if (!token) continue;
+    buf += token;
+    // Flush every complete "FACT: ..." line immediately
+    const lines = buf.split('\n');
+    buf = lines.pop() ?? '';
+    for (const line of lines) {
+      const m = line.match(/^FACT:\s*(.+)/i);
+      if (m) res.write(`data: ${JSON.stringify({ fact: m[1].trim() })}\n\n`);
+    }
+  }
+  // Flush any trailing content without a newline
+  if (buf.trim()) {
+    const m = buf.match(/^FACT:\s*(.+)/i);
+    if (m) res.write(`data: ${JSON.stringify({ fact: m[1].trim() })}\n\n`);
+  }
+  res.write('data: [DONE]\n\n');
+  res.end();
+}
+
 // ─── GET /api/narrate (SSE) ──────────────────────────────────────────────────
-// Uses OpenAI gpt-4o-mini (vision) — cheap and fast (~2s).
-// Streams 3-4 thought-provoking questions about the clicked element
-// so the user has something to read while the slower image generates.
+// Vision model identifies what's under the red dot and streams 20 fun facts
+// about it — gives users something delightful to read while the image generates.
 app.get('/api/narrate', async (req, res) => {
-  const { parentId, x, y, topic, label } = req.query;
+  const { parentId, x, y } = req.query;
   if (!parentId || x === undefined || y === undefined)
     return res.status(400).json({ error: 'parentId, x, y required' });
   if (!cache.exists(parentId))
@@ -253,50 +275,33 @@ app.get('/api/narrate', async (req, res) => {
   res.flushHeaders();
 
   try {
-    // Annotate the parent image with a red dot so gpt-4o-mini can SEE exactly
-    // what element the user clicked — much more accurate than coordinate guessing.
-    const parentBuf  = cache.read(parentId);
-    const annotated  = await annotateWithRedDot(parentBuf, nx, ny);
-    const b64        = annotated.toString('base64');
+    const parentBuf = cache.read(parentId);
+    const annotated = await annotateWithRedDot(parentBuf, nx, ny);
+    const b64       = annotated.toString('base64');
 
     const stream = await openai.chat.completions.create({
       model:      'gpt-4o-mini',
       stream:     true,
-      max_tokens: 120,
+      max_tokens: 600,
       messages: [{
         role: 'user',
         content: [
-          {
-            type: 'image_url',
-            image_url: { url: `data:image/png;base64,${b64}`, detail: 'low' },
-          },
-          {
-            type: 'text',
-            text: questionsPrompt(),
-          },
+          { type: 'image_url', image_url: { url: `data:image/png;base64,${b64}`, detail: 'low' } },
+          { type: 'text', text: funFactsPrompt() },
         ],
       }],
     });
 
-    for await (const chunk of stream) {
-      const token = chunk.choices[0]?.delta?.content;
-      if (token) res.write(`data: ${JSON.stringify({ token })}\n\n`);
-    }
-
-    res.write('data: [DONE]\n\n');
-    res.end();
+    await streamFacts(stream, res);
   } catch (err) {
     console.error('[/api/narrate]', err.message);
-    // Narration is optional — fail silently so image generation is unaffected
     res.write('data: [DONE]\n\n');
     res.end();
   }
 });
 
 // ─── GET /api/narrate-topic (SSE) ────────────────────────────────────────────
-// Runs while the FIRST illustration is being generated (no parent image yet).
-// Streams 3 anticipation-building questions about the user's typed topic
-// so the 30-60s image wait isn't boring.
+// Streams 20 fun facts about the typed topic while the first illustration generates.
 app.get('/api/narrate-topic', async (req, res) => {
   const { query } = req.query;
   if (!query || typeof query !== 'string' || !query.trim() || query.length > 300) {
@@ -312,67 +317,13 @@ app.get('/api/narrate-topic', async (req, res) => {
     const stream = await openai.chat.completions.create({
       model:      'gpt-4o-mini',
       stream:     true,
-      max_tokens: 120,
-      messages: [{ role: 'user', content: topicNarrationPrompt(query.trim()) }],
+      max_tokens: 600,
+      messages: [{ role: 'user', content: topicFunFactsPrompt(query.trim()) }],
     });
 
-    for await (const chunk of stream) {
-      const token = chunk.choices[0]?.delta?.content;
-      if (token) res.write(`data: ${JSON.stringify({ token })}\n\n`);
-    }
-
-    res.write('data: [DONE]\n\n');
-    res.end();
+    await streamFacts(stream, res);
   } catch (err) {
     console.error('[/api/narrate-topic]', err.message);
-    res.write('data: [DONE]\n\n');
-    res.end();
-  }
-});
-
-// ─── GET /api/answer (SSE) ───────────────────────────────────────────────────
-// User clicked a question in the NarrationPanel → stream a focused 2-3 sentence
-// answer so they can read it without leaving the viewer.
-// Query params: question (required), context (optional — the "Zooming into: X" label)
-app.get('/api/answer', async (req, res) => {
-  const { question, context } = req.query;
-  if (!question || typeof question !== 'string' || !question.trim()) {
-    return res.status(400).json({ error: 'question required' });
-  }
-
-  res.setHeader('Content-Type',  'text/event-stream');
-  res.setHeader('Cache-Control', 'no-cache');
-  res.setHeader('Connection',    'keep-alive');
-  res.flushHeaders();
-
-  try {
-    const contextLine = context
-      ? `The user is currently viewing an illustrated explainer about "${context}".`
-      : 'The user is viewing an illustrated educational explainer.';
-
-    const stream = await openai.chat.completions.create({
-      model:      'gpt-4o-mini',
-      stream:     true,
-      max_tokens: 160,
-      messages: [
-        {
-          role: 'system',
-          content: `You are a knowledgeable, engaging guide inside an illustrated visual explorer. ${contextLine}
-Answer the user's question in exactly 2–3 sentences. Be specific, vivid, and fascinating — like a documentary narrator. No bullet points, no headers, no markdown. Plain flowing prose only.`,
-        },
-        { role: 'user', content: question.trim() },
-      ],
-    });
-
-    for await (const chunk of stream) {
-      const token = chunk.choices[0]?.delta?.content;
-      if (token) res.write(`data: ${JSON.stringify({ token })}\n\n`);
-    }
-
-    res.write('data: [DONE]\n\n');
-    res.end();
-  } catch (err) {
-    console.error('[/api/answer]', err.message);
     res.write('data: [DONE]\n\n');
     res.end();
   }

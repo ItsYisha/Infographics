@@ -32,88 +32,42 @@ same line weight, paper tone, palette, and title typography.`;
 }
 
 /**
- * Prompt for the questions panel (gpt-4o-mini, vision).
- * Model receives the red-dot annotated image and generates questions
- * that build anticipation while the next image generates.
+ * Fun-facts prompt (vision) — used while a child image is generating.
+ * Model receives the red-dot annotated parent image.
  *
  * Output format (streamed as plain text):
- *   Line 1: "Zooming into: <element name>"
- *   Lines 2-N: "• <question>?"
+ *   FACT: [one fascinating sentence]
+ *   FACT: [one fascinating sentence]
+ *   … (exactly 20 lines)
  */
-function questionsPrompt() {
-  return `This educational illustration has a red circle marking a specific element the reader wants to explore.
+function funFactsPrompt() {
+  return `This educational illustration has a red circle marking a specific element.
 
-First, identify the exact element or concept under the red circle (be specific, e.g. "Turbine Blades" not just "turbine").
+Identify exactly what is under the red circle, then generate 20 fascinating, surprising fun facts about it. Each fact must be a single vivid sentence (max 25 words), specific and delightful — the kind of thing that makes someone say "whoa, I didn't know that."
 
-Then output EXACTLY in this format — no extra text, no markdown, no introduction:
-
-Zooming into: [element name]
-
-• [thought-provoking question about how it works]?
-• [question connecting it to something the reader might know]?
-• [question about why it matters or what would happen without it]?
-
-Keep each question under 12 words. Be specific to this exact element. Total output: under 60 words.`;
+Output ONLY this format, no intro, no numbering, no extra text:
+FACT: [fact]
+FACT: [fact]
+(exactly 20 FACT: lines)`;
 }
 
 /**
- * Text-only version for gpt-4o-mini (no vision).
- * Uses click position + parent topic context to generate relevant questions.
- * xPct/yPct: 0-1 normalised click coords.
- * topic: the root query (e.g. "why renaissance happened in Italy").
- * pageLabel: optional label of the current page (e.g. "Florence").
+ * Topic fun-facts prompt (text-only) — used while the very first illustration generates.
  */
-function questionsPromptText(xPct, yPct, topic, pageLabel) {
-  const hPos = xPct < 0.4 ? 'left side' : xPct > 0.6 ? 'right side' : 'center';
-  const vPos = yPct < 0.4 ? 'upper area' : yPct > 0.6 ? 'lower area' : 'middle';
+function topicFunFactsPrompt(query) {
+  return `Generate 20 fascinating, surprising fun facts about: "${query}".
 
-  const topicLine = topic
-    ? `The infographic is about: "${pageLabel ? `${pageLabel} (part of: ${topic})` : topic}".`
-    : 'The infographic is an educational diagram.';
+Each fact must be a single vivid sentence (max 25 words) — the kind of thing that makes someone say "whoa, I didn't know that." Be specific, varied, and cover different angles (history, science, extremes, surprising connections).
 
-  return `A user is studying an educational illustrated infographic and clicked on the ${hPos}, ${vPos} of the image to dive deeper.
-
-${topicLine}
-
-Identify the most likely specific element or concept shown in that region of THIS infographic (not a generic element — be specific to the topic), then generate 3 thought-provoking questions about it.
-
-Output EXACTLY in this format, no extra text:
-
-Zooming into: [specific element name relevant to the topic]
-
-• [question about how it works or came to be]?
-• [question connecting it to the bigger picture]?
-• [question about why it matters or what would change without it]?
-
-Keep each question under 12 words. Total output under 60 words.`;
-}
-
-/**
- * Topic-narration prompt — runs while the very first illustration is generating.
- * Gives the user something to read during the 30-60s wait so it doesn't feel boring.
- *
- * Output format (streamed as plain text — same shape as questionsPromptText):
- *   Line 1: "Exploring: <topic>"
- *   Lines 2-N: "• <question>?"
- */
-function topicNarrationPrompt(query) {
-  return `A user just typed this topic into a visual knowledge explorer: "${query}".
-
-While the illustration is being drawn, give them three thought-provoking questions that build anticipation and prime their curiosity. Output EXACTLY in this format — no extra text, no markdown, no introduction:
-
-Exploring: ${query}
-
-• [question about a key mechanism, structure, or cause behind this topic]?
-• [question that connects it to something familiar or surprising]?
-• [question about why it matters or what would happen without it]?
-
-Keep each question under 12 words. Be specific to this exact topic. Total output: under 60 words.`;
+Output ONLY this format, no intro, no numbering, no extra text:
+FACT: [fact]
+FACT: [fact]
+(exactly 20 FACT: lines)`;
 }
 
 module.exports = {
   firstPagePrompt,
   childPagePrompt,
-  questionsPrompt,
-  questionsPromptText,
-  topicNarrationPrompt,
+  funFactsPrompt,
+  topicFunFactsPrompt,
 };

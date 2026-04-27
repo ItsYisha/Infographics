@@ -1,113 +1,79 @@
-import { useEffect, useRef } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import './NarrationPanel.css';
 
 /**
- * Renders the streaming questions panel.
- *
- * Text format from server:
- *   "Zooming into: Turbine Blades\n\n• Why do they spin so fast?\n• ..."
- *
- * Rendering strategy: complete bullets and the in-progress partial bullet share
- * a stable numeric key (their bullet index). This means the element is created
- * once when a bullet first appears and never remounted as text fills in — so
- * the entrance animation plays exactly once per question, at the moment it
- * first appears, regardless of streaming state.
+ * Fun Facts overlay — absolutely positioned over the image canvas.
+ * Shows one fact at a time, cycling through all collected facts in a loop.
+ * Visible only while the image is generating (generating=true) or facts exist.
  */
-/**
- * onQuestionClick(question, context) — fired when user clicks a completed bullet.
- * askedQuestions — Set<string> of questions already added to the flashcard stack.
- */
-export default function NarrationPanel({ text, streaming, visible, generating, onQuestionClick, askedQuestions = new Set() }) {
-  const bottomRef = useRef(null);
+export default function NarrationPanel({ facts = [], streaming, generating }) {
+  const [activeIdx, setActiveIdx] = useState(0);
+  const [visible, setVisible]     = useState(false);
+  const [exiting, setExiting]     = useState(false);
+  const timerRef  = useRef(null);
+  const cycleMs   = 4000; // how long each fact shows
 
+  // Show panel as soon as we have at least one fact
   useEffect(() => {
-    bottomRef.current?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-  }, [text]);
+    if (facts.length > 0) setVisible(true);
+  }, [facts.length]);
 
-  if (!visible && !text) return null;
+  // Hide panel when generation is done and we've shown all facts at least once
+  useEffect(() => {
+    if (!generating && !streaming && facts.length > 0) {
+      // Give the user a moment to read the current fact, then fade out
+      const t = setTimeout(() => setVisible(false), 1200);
+      return () => clearTimeout(t);
+    }
+  }, [generating, streaming, facts.length]);
 
-  const lines = text.split('\n').filter(l => l.trim());
-  const HEADER_PREFIXES = ['Zooming into:', 'Exploring:'];
-  const isHeader = (l) => HEADER_PREFIXES.some(p => l.startsWith(p));
-  const header = lines.find(isHeader) || '';
-  const headerLabel = header.startsWith('Exploring:') ? 'Exploring' : 'Zooming into';
+  // Reset when facts are cleared (new drill-down started)
+  useEffect(() => {
+    if (facts.length === 0) {
+      setVisible(false);
+      setActiveIdx(0);
+    }
+  }, [facts.length]);
 
-  // Complete bullets (lines starting with "•")
-  const completedBullets = lines.filter(l => l.startsWith('•'));
-  // Current in-progress line (doesn't start with "•" yet — the bullet char
-  // arrives before the rest of the line, so this is a line that was preceded
-  // by "•" but hasn't completed yet, OR a truly partial first-char situation)
-  const partialLines = lines.filter(l => l.trim() && !isHeader(l) && !l.startsWith('•'));
+  // Cycle through facts
+  useEffect(() => {
+    if (!visible || facts.length === 0) return;
 
-  // Merge into a single ordered list with stable indices.
-  // Partial line (if any) comes after the completed ones and is the "typing" one.
-  const allBullets = [
-    ...completedBullets,
-    ...(streaming && partialLines.length ? partialLines : []),
-  ];
-  const partialIdx = streaming && partialLines.length ? completedBullets.length : -1;
+    timerRef.current = setInterval(() => {
+      setExiting(true);
+      setTimeout(() => {
+        setActiveIdx(prev => (prev + 1) % facts.length);
+        setExiting(false);
+      }, 350); // match CSS exit duration
+    }, cycleMs);
+
+    return () => clearInterval(timerRef.current);
+  }, [visible, facts.length]);
+
+  if (!visible || facts.length === 0) return null;
+
+  const fact = facts[activeIdx];
 
   return (
-    <div className={`narration-panel ${visible ? 'visible' : 'fading'}`}>
-      {/* Header */}
-      {header ? (
-        <div className="narration-header">
-          <span className="narration-scope-icon">{headerLabel === 'Exploring' ? '🧭' : '🔬'}</span>
-          <span className="narration-scope-text">
-            {header.replace(headerLabel + ':', '').trim()}
-            {streaming && !allBullets.length && <span className="narration-cursor" />}
-          </span>
-        </div>
-      ) : (
-        <div className="narration-header narration-header-placeholder">
-          <span className="narration-scope-icon">🔬</span>
-          <span className="narration-scope-text narration-skeleton">
-            {streaming && <span className="narration-cursor" />}
-          </span>
-        </div>
-      )}
-
-      {/* Questions — each bullet animates in exactly once when it first appears */}
-      {allBullets.length > 0 && (
-        <ul className="narration-questions">
-          {allBullets.map((q, i) => {
-            const isPartial = i === partialIdx;
-            const qText = q.replace(/^•\s*/, '');
-            const isAsked = !isPartial && askedQuestions.has(qText);
-            const isClickable = !isPartial && !!onQuestionClick;
-            return (
-              <li
+    <div className={`fun-facts-overlay ${visible ? 'fun-facts-visible' : ''}`}>
+      <div className="fun-facts-inner">
+        <div className="fun-facts-label">✦ Fun Fact</div>
+        <p className={`fun-facts-text ${exiting ? 'fun-facts-exit' : 'fun-facts-enter'}`}
+           key={activeIdx}>
+          {fact}
+        </p>
+        <div className="fun-facts-footer">
+          <div className="fun-facts-dots">
+            {facts.map((_, i) => (
+              <span
                 key={i}
-                className={[
-                  'narration-q',
-                  isPartial   ? 'narration-q-partial'   : '',
-                  isAsked     ? 'narration-q-asked'     : '',
-                  isClickable ? 'narration-q-clickable' : '',
-                ].filter(Boolean).join(' ')}
-                onClick={isClickable ? () => onQuestionClick(qText, header.replace(/^.*?:\s*/, '').trim()) : undefined}
-                title={isClickable ? (isAsked ? 'Add another card' : 'Click to get an answer') : undefined}
-              >
-                {qText}
-                {isPartial && <span className="narration-cursor" />}
-                {isClickable && !isPartial && (
-                  <span className="narration-q-ask">
-                    {isAsked ? '✓' : '?'}
-                  </span>
-                )}
-              </li>
-            );
-          })}
-          <div ref={bottomRef} />
-        </ul>
-      )}
-
-      {/* Generating progress bar */}
-      {generating && (
-        <div className="narration-progress">
-          <div className="narration-progress-bar" />
-          <span className="narration-progress-label">Generating illustration…</span>
+                className={`fun-facts-dot ${i === activeIdx ? 'fun-facts-dot-active' : ''}`}
+              />
+            ))}
+          </div>
+          <span className="fun-facts-counter">{activeIdx + 1} / {facts.length}</span>
         </div>
-      )}
+      </div>
     </div>
   );
 }
