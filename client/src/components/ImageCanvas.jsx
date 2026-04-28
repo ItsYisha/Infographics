@@ -11,12 +11,7 @@ const MAX_TOOLTIP_AVATARS = 5;
  *   Each spot is a location where at least one community member previously
  *   clicked to go deeper. Hovering shows who went there.
  */
-/**
- * hideOverlay — when true, suppresses the built-in spinner and pulse-border
- * so an external overlay (EraserRabbit) can take over visual feedback.
- * Click blocking is still active via the handleClick early-return.
- */
-export default function ImageCanvas({ imageUrl, onElementClick, generating, hintSpots = [], hideOverlay = false }) {
+export default function ImageCanvas({ imageUrl, onElementClick, generating, hintSpots = [] }) {
   const imgRef = useRef(null);
   const [ripple, setRipple] = useState(null);
   const [hoveredSpot, setHoveredSpot] = useState(null); // index into hintSpots
@@ -34,7 +29,7 @@ export default function ImageCanvas({ imageUrl, onElementClick, generating, hint
   }
 
   return (
-    <div className={`image-canvas-wrap ${generating && !hideOverlay ? 'generating' : ''}`}>
+    <div className={`image-canvas-wrap ${generating ? 'generating' : ''}`}>
       <img
         ref={imgRef}
         src={imageUrl}
@@ -100,8 +95,8 @@ export default function ImageCanvas({ imageUrl, onElementClick, generating, hint
         />
       )}
 
-      {/* Generating overlay — suppressed when EraserRabbit is active */}
-      {generating && !hideOverlay && (
+      {/* Generating overlay */}
+      {generating && (
         <div className="generating-overlay">
           <div className="generating-spinner" />
           <span>Generating…</span>
@@ -109,7 +104,7 @@ export default function ImageCanvas({ imageUrl, onElementClick, generating, hint
       )}
 
       {/* Hint badge */}
-      {!generating && !hideOverlay && (
+      {!generating && (
         <div className="canvas-hint">
           {hintSpots.length > 0
             ? `${hintSpots.length} path${hintSpots.length > 1 ? 's' : ''} explored — click a glow to follow, or explore anywhere`

@@ -453,42 +453,8 @@
       {
         "id": "299d4649800dafd488fe29bb87f7ac02",
         "imageUrl": "/cache/299d4649800dafd488fe29bb87f7ac02.png"
-      },
-      {
-        "id": "94a01ca20824da42e0b381b7084187d7",
-        "imageUrl": "/cache/94a01ca20824da42e0b381b7084187d7.png",
-        "click": {
-          "x": 0.6088235294117647,
-          "y": 0.6264705882352941
-        }
       }
-    ],
-    "tree": {
-      "299d4649800dafd488fe29bb87f7ac02": {
-        "id": "299d4649800dafd488fe29bb87f7ac02",
-        "imageUrl": "/cache/299d4649800dafd488fe29bb87f7ac02.png",
-        "click": null,
-        "visitors": [],
-        "childIds": [
-          "94a01ca20824da42e0b381b7084187d7"
-        ]
-      },
-      "94a01ca20824da42e0b381b7084187d7": {
-        "id": "94a01ca20824da42e0b381b7084187d7",
-        "imageUrl": "/cache/94a01ca20824da42e0b381b7084187d7.png",
-        "click": {
-          "x": 0.6088235294117647,
-          "y": 0.6264705882352941
-        },
-        "visitors": [
-          {
-            "seed": "6b5f4c9ac96a7e58f9f7d760",
-            "timestamp": 1777298377935
-          }
-        ],
-        "childIds": []
-      }
-    }
+    ]
   },
   {
     "id": "72c462214425e8a4a3d8502501905ec4",
@@ -557,80 +523,6 @@
           {
             "seed": "fe4834cad9263ed72ee2e8da",
             "timestamp": 1777291796687
-          }
-        ],
-        "childIds": []
-      }
-    }
-  },
-  {
-    "id": "f2193d6e718170f77881de582e0128ad",
-    "query": "DNA replication",
-    "thumbnailUrl": "/cache/f2193d6e718170f77881de582e0128ad.png",
-    "timestamp": 1777297454060,
-    "avatarSeed": "ZG5hIHJlcGxpY2F0",
-    "clicks": 1,
-    "shares": 0,
-    "pages": [
-      {
-        "id": "f2193d6e718170f77881de582e0128ad",
-        "imageUrl": "/cache/f2193d6e718170f77881de582e0128ad.png"
-      },
-      {
-        "id": "092236df1a985c86071b6937705c4c06",
-        "imageUrl": "/cache/092236df1a985c86071b6937705c4c06.png",
-        "click": {
-          "x": 0.6955882352941176,
-          "y": 0.7294117647058823
-        }
-      },
-      {
-        "id": "ab87ff7f506b4db52172dabdd7041c30",
-        "imageUrl": "/cache/ab87ff7f506b4db52172dabdd7041c30.png",
-        "click": {
-          "x": 0.6779411764705883,
-          "y": 0.65
-        }
-      }
-    ],
-    "tree": {
-      "f2193d6e718170f77881de582e0128ad": {
-        "id": "f2193d6e718170f77881de582e0128ad",
-        "imageUrl": "/cache/f2193d6e718170f77881de582e0128ad.png",
-        "click": null,
-        "visitors": [],
-        "childIds": [
-          "092236df1a985c86071b6937705c4c06"
-        ]
-      },
-      "092236df1a985c86071b6937705c4c06": {
-        "id": "092236df1a985c86071b6937705c4c06",
-        "imageUrl": "/cache/092236df1a985c86071b6937705c4c06.png",
-        "click": {
-          "x": 0.6955882352941176,
-          "y": 0.7294117647058823
-        },
-        "visitors": [
-          {
-            "seed": "fe4834cad9263ed72ee2e8da",
-            "timestamp": 1777297602109
-          }
-        ],
-        "childIds": [
-          "ab87ff7f506b4db52172dabdd7041c30"
-        ]
-      },
-      "ab87ff7f506b4db52172dabdd7041c30": {
-        "id": "ab87ff7f506b4db52172dabdd7041c30",
-        "imageUrl": "/cache/ab87ff7f506b4db52172dabdd7041c30.png",
-        "click": {
-          "x": 0.6779411764705883,
-          "y": 0.65
-        },
-        "visitors": [
-          {
-            "seed": "fe4834cad9263ed72ee2e8da",
-            "timestamp": 1777298207102
           }
         ],
         "childIds": []

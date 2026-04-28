@@ -1,0 +1,103 @@
+/* ── Fun Facts overlay — sits on top of the image canvas ── */
+.fun-facts-overlay {
+  position: absolute;
+  inset: 0;
+  border-radius: 12px;           /* match ImageCanvas border-radius */
+  background: rgba(14, 12, 10, 0.68);
+  backdrop-filter: blur(3px);
+  -webkit-backdrop-filter: blur(3px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 32px;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  pointer-events: none;
+  z-index: 10;
+}
+
+.fun-facts-visible {
+  opacity: 1;
+}
+
+/* ── Card container ── */
+.fun-facts-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 18px;
+  max-width: 520px;
+  width: 100%;
+  text-align: center;
+}
+
+/* ── "✦ Fun Fact" label ── */
+.fun-facts-label {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(255, 220, 100, 0.75);
+}
+
+/* ── Fact text ── */
+.fun-facts-text {
+  margin: 0;
+  font-size: clamp(15px, 2vw, 19px);
+  font-weight: 500;
+  color: #fff;
+  line-height: 1.65;
+}
+
+@keyframes factEnter {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0);    }
+}
+
+@keyframes factExit {
+  from { opacity: 1; transform: translateY(0);     }
+  to   { opacity: 0; transform: translateY(-10px); }
+}
+
+.fun-facts-enter {
+  animation: factEnter 0.38s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.fun-facts-exit {
+  animation: factExit 0.32s ease forwards;
+}
+
+/* ── Footer: dots + counter ── */
+.fun-facts-footer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.fun-facts-dots {
+  display: flex;
+  gap: 5px;
+  flex-wrap: wrap;
+  justify-content: center;
+  max-width: 240px;
+}
+
+.fun-facts-dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.25);
+  transition: background 0.25s, transform 0.25s;
+}
+
+.fun-facts-dot-active {
+  background: rgba(255, 220, 100, 0.85);
+  transform: scale(1.35);
+}
+
+.fun-facts-counter {
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.3);
+  letter-spacing: 0.05em;
+}

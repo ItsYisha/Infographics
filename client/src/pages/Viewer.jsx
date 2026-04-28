@@ -1,9 +1,9 @@
-import { useEffect, useRef, useCallback, useState } from 'react';
+import { useEffect, useRef, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
-import Breadcrumb    from '../components/Breadcrumb';
-import ImageCanvas   from '../components/ImageCanvas';
-import EraserRabbit  from '../components/EraserRabbit';
-import ExportButton  from '../components/ExportButton';
+import Breadcrumb from '../components/Breadcrumb';
+import ImageCanvas from '../components/ImageCanvas';
+import NarrationPanel from '../components/NarrationPanel';
+import ExportButton from '../components/ExportButton';
 import { useNarration } from '../hooks/useNarration';
 import './Viewer.css';
 
@@ -20,7 +20,6 @@ export default function Viewer({ burrow }) {
     reset,
     regenerate,
   } = burrow;
-
   const {
     facts,
     streaming: narStreaming,
@@ -28,29 +27,16 @@ export default function Viewer({ burrow }) {
     startTopicNarration,
     clearNarration,
   } = useNarration();
-
   const navigate = useNavigate();
 
-  // ── Click position + old image URL for EraserRabbit ──────────────────────
-  const [clickPos, setClickPos]   = useState(null);
-  const oldImageUrlRef            = useRef(null);
-
-  // Capture the old image URL the moment generating starts
-  // (currentPage still points to the OLD page at this render)
-  useEffect(() => {
-    if (generating && currentPage?.imageUrl) {
-      oldImageUrlRef.current = currentPage.imageUrl;
-    }
-  }, [generating]); // eslint-disable-line react-hooks/exhaustive-deps
-
-  // ── Redirect home if there's nothing to show ─────────────────────────────
+  // Redirect to home only if there's nothing happening.
   useEffect(() => {
     if (!pages.length && !generating && !pendingQuery) {
       navigate('/', { replace: true });
     }
   }, [pages.length, generating, pendingQuery, navigate]);
 
-  // ── Topic narration (first-page generation) ───────────────────────────────
+  // Kick off topic narration immediately when Viewer first loads with a pending query.
   const startedTopicFor = useRef(null);
   useEffect(() => {
     if (pendingQuery && startedTopicFor.current !== pendingQuery) {
@@ -60,24 +46,20 @@ export default function Viewer({ burrow }) {
     if (!pendingQuery) startedTopicFor.current = null;
   }, [pendingQuery, startTopicNarration]);
 
-  // ── Click handler ────────────────────────────────────────────────────────
   const handleElementClick = useCallback((x, y) => {
     if (!currentPage || generating) return;
     clearNarration();
 
-    // Don't start narration or rabbit for instant hint-spot loads
-    const hints         = burrow.getHintsForPage(currentPage.id);
+    // Don't narrate instant hint-spot loads — the image is already cached.
+    const hints = burrow.getHintsForPage(currentPage.id);
     const isInstantLoad = hints.some(h => Math.hypot(h.x - x, h.y - y) < 0.05);
-
     if (!isInstantLoad) {
       startNarration(currentPage.id, x, y);
-      setClickPos({ x, y }); // arm the rabbit animation
     }
 
     drillDown(x, y);
   }, [currentPage, generating, drillDown, startNarration, clearNarration, burrow]);
 
-  // ── Navigation ───────────────────────────────────────────────────────────
   const handleNavigate = useCallback((index) => {
     if (index === -1) {
       navigate('/');
@@ -99,7 +81,7 @@ export default function Viewer({ burrow }) {
     regenerate();
   }, [generating, regenerate, clearNarration]);
 
-  // ── Clear narration when navigating to an existing page ──────────────────
+  // Clear narration whenever user navigates to an existing page (not generating).
   const prevGeneratingRef = useRef(false);
   useEffect(() => {
     const wasGenerating = prevGeneratingRef.current;
@@ -110,16 +92,8 @@ export default function Viewer({ burrow }) {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentPage?.id]);
 
-  // ── Rabbit done callback ─────────────────────────────────────────────────
-  const handleRabbitDone = useCallback(() => {
-    setClickPos(null);
-  }, []);
-
   const isInitialLoad = !currentPage && (generating || pendingQuery);
   if (!currentPage && !isInitialLoad) return null;
-
-  const rabbitActive   = generating && !!clickPos;
-  const imageReady     = !generating;
 
   return (
     <div className="viewer">
@@ -171,7 +145,6 @@ export default function Viewer({ burrow }) {
                 onElementClick={handleElementClick}
                 generating={generating}
                 hintSpots={burrow.getHintsForPage(currentPage.id)}
-                hideOverlay={rabbitActive}
               />
             ) : (
               <div className="image-canvas-placeholder">
@@ -180,20 +153,15 @@ export default function Viewer({ burrow }) {
               </div>
             )}
 
-            {/* Rabbit eraser overlay — only for drilldown generation, not first page */}
-            {currentPage && (
-              <EraserRabbit
-                active={rabbitActive}
-                clickPos={clickPos}
-                oldImageUrl={oldImageUrlRef.current}
-                facts={facts}
-                imageReady={imageReady}
-                onDone={handleRabbitDone}
-              />
-            )}
+            {/* Fun Facts overlay — centered on the image while generating */}
+            <NarrationPanel
+              facts={facts}
+              streaming={narStreaming}
+              generating={generating}
+            />
           </div>
 
-          {/* Level info */}
+          {/* Level counter */}
           <div className="viewer-level-info">
             <span>
               {currentPage
